@@ -1,0 +1,607 @@
+/* styles.css */
+
+/* ── Preloader ── */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 1s ease-out;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-content {
+  text-align: center;
+  color: var(--text);
+}
+
+.preloader-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 中央揃え */
+}
+
+.preloader-brand-main {
+  font-size: 4rem; /* brand-main と同じサイズ */
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  display: block; /* 改行 */
+  font-family: 'Playfair Display', serif; /* フォントを適用 */
+}
+
+.preloader-brand-sub {
+  font-size: 1.25rem; /* brand-sub と同じサイズ */
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 0.5rem;
+  display: block; /* 改行 */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif; /* フォントを適用 */
+}
+
+.preloader-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent);
+  border-radius: 4px;
+  transition: width 0.1s linear;
+}
+
+#preloader-percentage {
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+/* ── Root Variables ── */
+:root {
+  --bg: #121212;
+  --text: #ffffff;
+  --accent: #e8b38f;
+  --subtone: #2b2b2b;
+}
+
+/* ── Reset ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Base ── */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Playfair Display', serif;
+  line-height: 1.6;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem; /* 画面左右に余白を入れる */
+}
+
+/* ── Section Spacing & Titles ── */
+section {
+  padding: 8rem 0;           /* 全セクション上下余白を均等に */
+}
+section h2,
+.usage h3 {
+  font-size: 3rem; /* タイトルサイズを統一 */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ── Navigation ── */
+.navbar {
+  background-color: var(--subtone);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+}
+.logo img {
+  height: 64px;
+  width: auto;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+.nav-links li a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+}
+.nav-links li a:hover {
+  color: var(--accent);
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ── Mobile Menu ── */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: var(--subtone);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    padding: 1rem;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+}
+
+/* ── Hero ── */
+.hero {
+  background-color: var(--subtone);
+}
+
+/* ── Hero セクションへのプロフィール画像背景追加 ── */
+.hero {
+  position: relative; /* 擬似要素を重ねるために相対位置 */
+  background-color: var(--subtone);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%; /* 画面より少し大きめに */
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: url('assets/images/EmuW_pf.png') center center / cover no-repeat;
+  opacity: 0.06; /* 薄めの透過 */
+  pointer-events: none; /* 背景としてのみ機能 */
+  z-index: 0;
+}
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-pf {
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+.hero-title {
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+/* ブランドロゴ的に中央揃え */
+.hero-brand {
+  text-align: center;
+  margin-bottom: 2rem; /* ヒーロー内との上下間隔 */
+}
+
+/* メインタイトル：大きく、存在感をもたせる */
+.brand-main {
+  font-size: 4rem; /* 大きめのサイズ */
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin: 0;
+  font-family: 'Playfair Display', serif; /* 上品なセリフ体 */
+}
+
+/* サブタイトル：小さめに、軽やかに */
+.brand-sub {
+  font-size: 1.25rem; /* メインの1/3スケールくらい */
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75); /* やや薄めの白で軽さを演出 */
+  margin: 0.5rem 0 0;
+  font-family: 'Montserrat', sans-serif; /* メインと差をつけるサンセリフ */
+  text-transform: uppercase;
+  letter-spacing: 0.1em; /* 少し字間を開けてスタイリッシュに */
+}
+
+/* .btn {
+  display: inline-block;
+  border: 2px solid var(--accent);
+  padding: 0.75rem 1.5rem;
+  background: none;
+  color: var(--text);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+} */
+
+/* ── Listen Now ── */
+.listen iframe {
+  display: block;
+  width: 66.666%;
+  max-width: 100%;
+  height: 352px;
+  border-radius: 12px;
+  margin: 0 auto; /* 左右均等に余白を */
+}
+
+/* ── About EmuW ── */
+.bio .container {
+  text-align: center;
+}
+.bio p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Music ── */
+.music .container {
+  text-align: center;
+}
+.section-subtitle {
+  margin-bottom: 3rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.album-container {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 2rem 0; /* 上下余白のみ */
+  margin: 0 -3rem; /* .container の padding を打ち消し、左右にはみ出す */
+  scroll-snap-type: x mandatory; /* スナップを有効化 */
+  scroll-behavior: smooth; /* スムーズスクロール */
+}
+.album-item {
+  flex: 0 0 auto; /* アイテムの伸縮を制御 */
+  width: 220px; /* デスクトップでのデフォルト幅 */
+  background-color: var(--subtone);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-snap-align: start;
+}
+.album-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.album-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.album-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: auto; /* タイトル高さに関わらずボタンを下に揃える */
+}
+.btn-link {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-link:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ── カルーセル矢印 ── */
+/* ── Carousel wrapper: 枠外にはみ出さないよう overflow:hidden ── */
+.carousel {
+  position: relative;
+  padding: 0 3rem; /* 矢印ボタン分の左右余白 */
+  scroll-padding-left: 3rem; /* カルーセル全体の左端パディング */
+  scroll-padding-right: 3rem; /* カルーセル全体の右端パディング */
+}
+
+/* 矢印ボタン */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--text);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s;
+}
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* ── 矢印ボタン位置調整（必要なら↓で微調整） ── */
+/* .carousel-btn.prev {
+  left: 1rem;
+}
+.carousel-btn.next {
+  right: 1rem;
+} */
+.carousel-btn.prev { left: 1rem; }
+.carousel-btn.next { right: 1rem; }
+
+/* スクロールバーを隠す（好みで） */
+/* .album-container::-webkit-scrollbar {
+  display: none;
+} */
+
+/* ── Videos ── */
+.videos .container {
+  text-align: center;
+}
+.videos-desc {
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: var(--text);
+}
+.video-embed iframe {
+  width: 100%;
+  max-width: 640px;
+  height: 360px;
+  border-radius: 8px;
+  margin: 0 auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Links ── */
+.links .container {
+  text-align: center;
+}
+.links-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+.link-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  text-decoration: none;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  transition: background 0.3s, color 0.3s;
+}
+.link-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+  background: var(--accent);
+}
+.link-label {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  color: var(--accent);
+  transition: color 0.3s;
+}
+.link-item:hover .link-label {
+  color: var(--bg);
+}
+
+.link-item svg {
+  width: 48px;
+  height: 48px;
+  color: var(--accent); /* デフォルトの色 */
+  transition: color 0.3s;
+}
+
+.link-item:hover svg {
+  color: var(--bg); /* ホバー時の色 */
+}
+
+/* ── Usage (“楽曲のご利用について”) ── */
+.usage .container {
+  text-align: center;
+}
+.usage p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Footer ── */
+.footer {
+  background-color: var(--subtone);
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* ── Fade-in on Scroll ── */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Main Content Fade-in ── */
+#main-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-out;
+}
+
+#main-content.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Responsive Adjustments ── */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .listen iframe {
+    height: 240px;
+  }
+  .album-container {
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  .album-item {
+    width: 160px;
+    padding: 0.75rem;
+  }
+  .album-title {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .btn-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  .videos-desc {
+    font-size: 0.9rem;
+  }
+  .video-embed iframe {
+    height: 240px;
+  }
+  .links-container {
+    gap: 1rem;
+  }
+  .link-item {
+    width: 100px;
+    padding: 0.75rem;
+  }
+  .link-label {
+    font-size: 0.875rem;
+  }
+}
+
+/* ── Mobile Responsive Fixes ── */
+@media (max-width: 480px) {
+  /* Hero */
+  .hero-container {
+    height: auto;
+    padding: 4rem 1rem;
+  }
+  .brand-main {
+    font-size: 2.5rem;
+  }
+  .brand-sub {
+    font-size: 1rem;
+  }
+  .hero-pf {
+    width: 120px;
+  }
+
+  /* Navigation */
+  .nav-links {
+    position: static;
+    width: 100%;
+    background: none;
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
+
+  /* Album gallery */
+  .album-container {
+    gap: 1rem;
+    padding: 1rem 0; /* 上下余白のみ */
+    margin: 0; /* 左右にはみ出さない */
+    scroll-padding-left: 1rem; /* 左端にスクロールしたときに余白を確保 */
+    scroll-padding-right: 1rem; /* 右端にスクロールしたときに余白を確保 */
+  }
+  .album-item {
+    width: calc(50% - 0.5rem); /* 2列表示 */
+    padding: 0.75rem;
+  }
+
+  /* Videos */
+  .video-embed iframe {
+    height: 200px;
+  }
+
+  /* Links */
+  .links-container {
+    gap: 1rem;
+  }
+  .link-item {
+    width: 100px;
+    padding: 0.75rem;
+  }
+
+  /* Listen Now */
+  .listen iframe {
+    height: 240px;
+  }
+}
+

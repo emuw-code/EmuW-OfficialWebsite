@@ -8,19 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const updateProgress = () => {
     if (currentProgress < 100) {
-      currentProgress += Math.floor(Math.random() * 10) + 1; // Simulate loading
+      currentProgress += 5; // 固定値で進捗を増やす
       if (currentProgress > 100) currentProgress = 100;
       preloaderPercentage.textContent = `${currentProgress}%`;
       preloaderSlider.value = currentProgress;
-      setTimeout(updateProgress, Math.random() * 100 + 50); // Update every 50-150ms
+      setTimeout(updateProgress, 100); // 固定の更新間隔
     } else {
       setTimeout(() => {
         preloader.classList.add('hidden');
         preloader.addEventListener('transitionend', () => {
           preloader.remove();
         });
-        mainContent.classList.add('visible'); // メインコンテンツをフェードイン
-      }, 500); // Wait a bit before hiding
+        mainContent.classList.add('visible');
+      }, 500);
     }
   };
 

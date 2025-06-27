@@ -632,14 +632,14 @@ section h2,
 
   /* Album gallery */
   .album-container {
-    gap: 0.5rem; /* gap を小さくする */
+    gap: 0.2rem; /* gap をさらに小さくする */
     padding: 1rem 0;
     margin: 0;
     scroll-padding-left: 1rem;
     scroll-padding-right: 1rem;
   }
   .album-item {
-    width: calc(50% - 0.25rem); /* 2列表示で幅を広げる */
+    width: calc(50% - 0.1rem); /* 2列表示で幅をさらに広げる */
     padding: 0.75rem;
   }
 

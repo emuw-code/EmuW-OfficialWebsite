@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Preloader
   const preloader = document.getElementById('preloader');
   const preloaderPercentage = document.getElementById('preloader-percentage');
-  const preloaderBar = document.querySelector('.preloader-bar');
+  const preloaderSlider = document.getElementById('preloader-slider');
   const mainContent = document.getElementById('main-content');
   let currentProgress = 0;
 
@@ -11,15 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
       currentProgress += Math.floor(Math.random() * 10) + 1; // Simulate loading
       if (currentProgress > 100) currentProgress = 100;
       preloaderPercentage.textContent = `${currentProgress}%`;
-      preloaderBar.style.width = `${currentProgress}%`;
+      preloaderSlider.value = currentProgress;
       setTimeout(updateProgress, Math.random() * 100 + 50); // Update every 50-150ms
     } else {
       setTimeout(() => {
         preloader.classList.add('hidden');
         preloader.addEventListener('transitionend', () => {
           preloader.remove();
-          mainContent.classList.add('visible'); // メインコンテンツをフェードイン
         });
+        mainContent.classList.add('visible'); // メインコンテンツをフェードイン
       }, 500); // Wait a bit before hiding
     }
   };
@@ -29,8 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // モバイルメニュー開閉
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
+  const menuIcon = menuToggle.querySelector('.menu-icon');
+  const closeIcon = menuToggle.querySelector('.close-icon');
+
   menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('show');
+    if (navLinks.classList.contains('show')) {
+      menuIcon.style.opacity = '0';
+      closeIcon.style.opacity = '1';
+    } else {
+      menuIcon.style.opacity = '1';
+      closeIcon.style.opacity = '0';
+    }
   });
 
   // アルバムカルーセル

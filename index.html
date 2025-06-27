@@ -38,19 +38,23 @@
           <span class="preloader-brand-sub">EMOTIONAL MUSIC WORLD</span>
         </h1>
         <div class="preloader-progress">
-          <div class="preloader-bar"></div>
+          <input type="range" id="preloader-slider" min="0" max="100" value="0" disabled />
         </div>
         <span id="preloader-percentage">0%</span>
       </div>
     </div>
 
+    <div id="main-content">
     <!-- Navigation -->
     <nav class="navbar">
       <div class="container nav-container">
         <a href="#home" class="logo">
           <img src="assets/images/EmuW_logo2.png" alt="EmuW Logo" />
         </a>
-        <button id="menuToggle" class="menu-toggle">☰</button>
+        <button id="menuToggle" class="menu-toggle">
+          <span class="menu-icon">☰</span>
+          <span class="close-icon">✕</span>
+        </button>
         <ul class="nav-links" id="navLinks">
           <li><a href="#home">Home</a></li>
           <li><a href="#listen">Listen</a></li>

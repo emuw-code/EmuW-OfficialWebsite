@@ -280,7 +280,7 @@ section h2,
 .hero-subtitle {
   font-size: 1.4rem; /* 少し大きく */
   margin-bottom: 1.5rem;
-  color: rgba(255, 255, 255, 0.9); /* 少し落ち着いた白 */
+  color: var(--accent); /* Change to accent color for a richer feel */
   letter-spacing: 0.05em; /* 文字間隔を広げてエレガントに */
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Add a subtle glow */
   filter: blur(0.5px); /* Add a slight blur effect */
@@ -528,12 +528,45 @@ section h2,
 .link-item svg {
   width: 48px;
   height: 48px;
-  color: var(--accent); /* デフォルトの色 */
-  transition: color 0.3s;
+  fill: var(--accent); /* Fill icons with accent color */
+  stroke: none; /* Remove strokes */
+  transition: fill 0.3s, transform 0.3s; /* Transition fill and transform */
+  margin-bottom: 0.5rem; /* Add space between icon and label */
 }
 
 .link-item:hover svg {
-  color: var(--bg); /* ホバー時の色 */
+  fill: var(--bg); /* Change fill on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Specific styles for TikTok SVG */
+.link-item svg #Base_Shape {
+  fill: #000000; /* Black for the main shape */
+}
+.link-item svg #Cyan_Layer {
+  fill: #25F4EE; /* Cyan offset */
+}
+.link-item svg #Magenta_Layer {
+  fill: #FE2C55; /* Magenta offset */
+}
+
+.link-item:hover svg #Base_Shape {
+  fill: var(--accent); /* Change main color on hover */
+}
+.link-item:hover svg #Cyan_Layer,
+.link-item:hover svg #Magenta_Layer {
+  fill: var(--bg); /* Change offset colors on hover */
+}
+
+/* Specific styles for TikTok SVG */
+.link-item svg.feather-music path,
+.link-item svg.feather-music circle {
+  fill: currentColor; /* Use currentColor to inherit from parent */
+}
+
+.link-item:hover svg.feather-music path,
+.link-item:hover svg.feather-music circle {
+  fill: inherit; /* Inherit fill from parent on hover */
 }
 
 /* ── Usage (“楽曲のご利用について”) ── */
@@ -556,8 +589,8 @@ section h2,
 /* ── Fade-in on Scroll ── */
 .fade-in-section {
   opacity: 0;
-  transform: translateY(40px); /* Start slightly lower */
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transform: translateY(40px) scale(0.95); /* Start slightly lower and smaller */
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .fade-in-section.is-visible {

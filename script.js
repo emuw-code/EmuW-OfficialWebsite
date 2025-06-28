@@ -45,6 +45,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Smooth scroll for navigation links
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', e => {
+      const targetId = link.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+
+      if (targetElement) {
+        e.preventDefault(); // Prevent default anchor behavior only if target exists
+
+        // Close the menu if it's open
+        if (navLinks.classList.contains('show')) {
+          navLinks.classList.remove('show');
+          menuToggle.classList.remove('menu-open');
+          document.body.style.overflow = ''; // Restore body scroll
+          menuIcon.style.opacity = '1';
+          closeIcon.style.opacity = '0';
+        }
+
+        // Scroll to the target element
+        window.scrollTo({
+          top: targetElement.offsetTop - 60, // Adjust for sticky nav height
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
   // アルバムカルーセル
   const container = document.querySelector('.album-container');
   const prevBtn = document.querySelector('.carousel-btn.prev');

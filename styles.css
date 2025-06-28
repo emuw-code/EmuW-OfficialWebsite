@@ -587,6 +587,10 @@ section h2,
     width: 100%; /* Added for mobile responsiveness */
     height: 240px;
   }
+  /* Make Apple Music player taller on mobile to avoid internal scrollbar */
+  .listen .apple-music-embed iframe {
+    height: 450px;
+  }
   .album-container {
     gap: 1rem;
     padding: 1rem 0;
@@ -652,14 +656,14 @@ section h2,
 
   /* Album gallery */
   .album-container {
-    gap: 1rem; /* gap をさらに小さくする */
-    padding: 1rem 0.5rem; /* Reduce horizontal padding */
+    gap: 0.4rem; /* Minimal gap */
+    padding: 1rem 0.2rem; /* Minimal horizontal padding */
     margin: 0;
-    scroll-padding-left: 0.5rem; /* Adjust scroll padding */
-    scroll-padding-right: 0.5rem; /* Adjust scroll padding */
+    scroll-padding-left: 0.2rem;
+    scroll-padding-right: 0.2rem;
   }
   .album-item {
-    width: calc(50% - 1rem); /* 2列表示で幅をさらに広げる */
+    width: calc(50% - 0.4rem); /* Wider 2-column layout */
     padding: 0.75rem;
   }
 
@@ -680,6 +684,10 @@ section h2,
   /* Listen Now */
   .listen iframe {
     height: 240px;
+  }
+  /* Make Apple Music player taller on mobile to avoid internal scrollbar */
+  .listen .apple-music-embed iframe {
+    height: 450px;
   }
 }
 

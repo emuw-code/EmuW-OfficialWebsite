@@ -282,6 +282,8 @@ section h2,
   margin-bottom: 1.5rem;
   color: rgba(255, 255, 255, 0.9); /* 少し落ち着いた白 */
   letter-spacing: 0.05em; /* 文字間隔を広げてエレガントに */
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Add a subtle glow */
+  filter: blur(0.5px); /* Add a slight blur effect */
 }
 /* ブランドロゴ的に中央揃え */
 .hero-brand {
@@ -591,13 +593,26 @@ section h2,
   .listen .apple-music-embed iframe {
     height: 450px;
   }
+  /* Make Spotify player taller on mobile to match Apple Music */
+  .listen .spotify-embed iframe {
+    height: 450px;
+  }
+
   .album-container {
-    gap: 1rem;
-    padding: 1rem 0;
+    /* Revert to horizontal scrolling */
+    flex-direction: row;
+    gap: 1.5rem; /* Adjust gap between items */
+    padding: 1rem; /* Add some padding */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
   }
   .album-item {
-    width: 160px;
+    flex: 0 0 90%; /* Make item almost full width */
+    width: 90%;
+    max-width: none; /* Remove max-width on mobile */
+    margin: 0; /* Remove auto margin */
     padding: 0.75rem;
+    scroll-snap-align: start; /* Snap to the start */
   }
   .album-title {
     font-size: 1rem;

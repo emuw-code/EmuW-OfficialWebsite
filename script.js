@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('show');
     menuToggle.classList.toggle('menu-open'); // Add/remove menu-open class
+    document.body.style.overflow = navLinks.classList.contains('show') ? 'hidden' : ''; // Prevent body scroll
     if (navLinks.classList.contains('show')) {
       menuIcon.style.opacity = '0';
       closeIcon.style.opacity = '1';

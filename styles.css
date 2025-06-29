@@ -128,6 +128,18 @@ body {
   padding: 0 3rem; /* 画面左右に余白を入れる */
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem; /* 左右の余白を最小限に */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem; /* 左右の余白をさらに最小限に */
+  }
+}
+
 /* ── Section Spacing & Titles ── */
 section {
   padding: 8rem 0;           /* 全セクション上下余白を均等に */
@@ -422,6 +434,25 @@ section h2,
   color: var(--bg);
 }
 
+.btn-link.icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.btn-link.icon-link svg {
+  width: 18px; /* Smaller icon size for music links */
+  height: 18px;
+  fill: var(--accent);
+  transition: fill 0.3s;
+  margin-bottom: 0; /* Override default margin-bottom */
+}
+
+.btn-link.icon-link:hover svg {
+  fill: var(--bg);
+}
+
 /* ── カルーセル矢印 ── */
 /* ── Carousel wrapper: 枠外にはみ出さないよう overflow:hidden ── */
 .carousel {
@@ -612,6 +643,9 @@ section h2,
 
 /* ── Responsive Adjustments ── */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1rem; /* 左右の余白を最小限に */
+  }
   .hero-title {
     font-size: 2rem;
   }
@@ -664,12 +698,12 @@ section h2,
     height: 240px;
   }
   .links-container {
-    gap: 1rem;
-  }
-  .link-item {
-    width: 100px;
-    padding: 0.75rem;
-  }
+  gap: 1rem;
+}
+.link-item {
+  width: calc(50% - 0.5rem); /* 2列表示 */
+  padding: 0.75rem;
+}
   .link-label {
     font-size: 0.875rem;
   }
@@ -677,6 +711,9 @@ section h2,
 
 /* ── Mobile Responsive Fixes ── */
 @media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem; /* 左右の余白をさらに最小限に */
+  }
   /* Hero */
   .hero-container {
     height: auto;
@@ -727,7 +764,7 @@ section h2,
     gap: 1rem;
   }
   .link-item {
-    width: 100px;
+    width: calc(50% - 0.5rem); /* 2列表示 */
     padding: 0.75rem;
   }
 
@@ -740,4 +777,3 @@ section h2,
     height: 450px;
   }
 }
-

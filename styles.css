@@ -684,6 +684,7 @@ section h2,
   opacity: 0;
   visibility: hidden;
   transition: opacity 1s ease-out;
+  margin-top: 96px; /* Adjust based on navbar height */
 }
 
 #main-content.visible {

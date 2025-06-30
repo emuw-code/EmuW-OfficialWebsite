@@ -784,9 +784,10 @@ section h2,
   /* Links */
   .links-container {
     gap: 1rem;
+    padding: 0 0.5rem;
   }
   .link-item {
-    width: calc(50% - 0.5rem); /* 2列表示 */
+    width: calc(50% - 1rem);
     padding: 0.75rem;
   }
 

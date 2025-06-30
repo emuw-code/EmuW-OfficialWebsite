@@ -232,45 +232,47 @@ section h2,
     right: 3rem;
   }
   .nav-links {
-    display: none;
+    display: flex; /* Keep as flex to allow transitions */
     flex-direction: column;
     background-color: var(--subtone);
-    position: fixed; /* Changed to fixed */
+    position: fixed;
     top: 0;
     right: 0;
-    width: 100%; /* Full width */
-    height: 100vh; /* Full height */
-    padding-top: 6rem; /* Add padding to avoid content overlap */
-    align-items: center; /* Center items */
+    width: 100%;
+    height: 100vh;
+    padding-top: 6rem;
+    align-items: center;
     z-index: 10;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
   }
+
   .nav-links.show {
-    display: flex;
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   .nav-links li {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   }
 
   .nav-links.show li {
     opacity: 1;
     transform: translateY(0);
+    transition-delay: var(--delay);
   }
 
-  /* Staggered animation for list items */
-  .nav-links.show li:nth-child(1) { transition-delay: 0.1s; }
-  .nav-links.show li:nth-child(2) { transition-delay: 0.2s; }
-  .nav-links.show li:nth-child(3) { transition-delay: 0.3s; }
-  .nav-links.show li:nth-child(4) { transition-delay: 0.4s; }
-  .nav-links.show li:nth-child(5) { transition-delay: 0.5s; }
-  .nav-links.show li:nth-child(6) { transition-delay: 0.6s; }
+  .nav-links.show li:nth-child(1) { --delay: 0.1s; }
+  .nav-links.show li:nth-child(2) { --delay: 0.2s; }
+  .nav-links.show li:nth-child(3) { --delay: 0.3s; }
+  .nav-links.show li:nth-child(4) { --delay: 0.4s; }
+  .nav-links.show li:nth-child(5) { --delay: 0.5s; }
+  .nav-links.show li:nth-child(6) { --delay: 0.6s; }
 }
 
 /* ── Hero ── */

@@ -115,11 +115,14 @@
 }
 
 /* ── Base ── */
-body {
+html {
   background-color: var(--bg);
+}
+body {
   color: var(--text);
   font-family: 'Playfair Display', serif;
   line-height: 1.6;
+  padding-top: 112px;
 }
 .container {
   width: 100%;
@@ -223,13 +226,8 @@ section h2,
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
-    z-index: 11; /* Ensure it's above the nav links */
-    font-size: 2.5rem; /* Increase icon size */
-  }
-  .menu-toggle.menu-open {
-    position: fixed;
-    top: 1.5rem;
-    right: 3rem;
+    z-index: 11;
+    font-size: 2.5rem;
   }
   .nav-links {
     display: flex; /* Keep as flex to allow transitions */
@@ -412,10 +410,9 @@ section h2,
   display: flex;
   gap: 2rem;
   overflow-x: auto;
-  padding: 2rem 0; /* 上下余白のみ */
-  margin: 0 -3rem; /* .container の padding を打ち消し、左右にはみ出す */
-  scroll-snap-type: x mandatory; /* スナップを有効化 */
-  scroll-behavior: smooth; /* スムーズスクロール */
+  padding: 2rem 1rem; /* Add horizontal padding */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 }
 .album-item {
   flex: 0 0 auto; /* アイテムの伸縮を制御 */
@@ -548,12 +545,23 @@ section h2,
   font-size: 1rem;
   color: var(--text);
 }
+.video-embed {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 640px; /* Set max-width for the container */
+  margin: 0 auto; /* Center the container */
+  background: #000;
+}
+
 .video-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 640px;
-  height: 360px;
+  height: 100%;
   border-radius: 8px;
-  margin: 0 auto;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
@@ -683,144 +691,12 @@ section h2,
 
 /* ── Responsive Adjustments ── */
 @media (max-width: 768px) {
-  .container {
-    padding: 0 1rem; /* 左右の余白を最小限に */
-  }
-  .hero-title {
-    font-size: 2rem;
-  }
-  .hero-subtitle {
-    font-size: 1.1rem;
-    filter: none; /* Remove blur for clarity */
-    text-shadow: 0 0 12px rgba(232, 179, 143, 0.4); /* Softer, warmer glow */
-  }
-  .listen iframe {
-    width: 100%; /* Added for mobile responsiveness */
-    height: 240px;
-  }
-  /* Make Apple Music player taller on mobile to avoid internal scrollbar */
-  .listen .apple-music-embed iframe {
-    height: 450px;
-  }
-  /* Make Spotify player taller on mobile to match Apple Music */
-  .listen .spotify-embed iframe {
-    height: 450px;
+  .nav-container {
+    padding: 1.5rem 1rem;
   }
 
-  .album-container {
-    /* Revert to horizontal scrolling */
-    flex-direction: row;
-    gap: 1.5rem; /* Adjust gap between items */
-    padding: 1rem; /* Add some padding */
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-  }
-  .album-item {
-    flex: 0 0 90%; /* Make item almost full width */
-    width: 90%;
-    max-width: none; /* Remove max-width on mobile */
-    margin: 0; /* Remove auto margin */
-    padding: 0.75rem;
-    scroll-snap-align: start; /* Snap to the start */
-  }
-  .album-title {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-  }
-  .btn-link {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-  }
-  .videos-desc {
-    font-size: 0.9rem;
-  }
-  .video-embed iframe {
-    height: 240px;
-  }
-  .links-container {
-  gap: 1rem;
-}
-.link-item {
-  width: calc(50% - 0.5rem); /* 2列表示 */
-  padding: 0.75rem;
-}
-  .link-label {
-    font-size: 0.875rem;
-  }
-}
-
-/* ── Mobile Responsive Fixes ── */
-@media (max-width: 480px) {
   .container,
   .carousel {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .nav-container {
-    padding: 1.5rem 1rem;
-  }
-
-  /* Hero */
-  .hero-container {
-    height: auto;
-    padding: 4rem 1rem;
-  }
-  .brand-main {
-    font-size: 2.5rem;
-  }
-  .brand-sub {
-    font-size: 1rem;
-  }
-  .hero-pf {
-    width: 120px;
-  }
-
-  /* Navigation */
-  .nav-links {
-    position: static;
-    width: 100%;
-    background: none;
-    flex-direction: column;
-    align-items: center;
-  }
-  .nav-links li {
-    margin: 0.5rem 0;
-  }
-
-  /* Album gallery */
-  .album-container {
-    gap: 0.4rem; /* Minimal gap */
-    padding: 1rem 0.2rem; /* Minimal horizontal padding */
-    margin: 0;
-    scroll-padding-left: 0.2rem;
-    scroll-padding-right: 0.2rem;
-  }
-  .album-item {
-    width: calc(50% - 0.4rem); /* Wider 2-column layout */
-    padding: 0.75rem;
-  }
-
-  /* Videos */
-  .video-embed iframe {
-    height: 200px;
-  }
-
-  /* Links */
-  .links-container {
-    gap: 1rem;
-    padding: 0 0.5rem;
-  }
-  .link-item {
-    width: calc(50% - 1rem);
-    padding: 0.75rem;
-  }
-
-  /* Listen Now */
-  .listen iframe {
-    height: 240px;
-  }
-  /* Make Apple Music player taller on mobile to avoid internal scrollbar */
-  .listen .apple-music-embed iframe {
-    height: 450px;
-  }
-}

@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeIcon = menuToggle.querySelector('.close-icon');
 
   menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-    menuToggle.classList.toggle('menu-open'); // Add/remove menu-open class
-    document.body.style.overflow = navLinks.classList.contains('show') ? 'hidden' : ''; // Prevent body scroll
+    const isMenuOpen = navLinks.classList.toggle('show');
+    menuToggle.classList.toggle('menu-open', isMenuOpen);
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
   });
 
   // Smooth scroll for navigation links

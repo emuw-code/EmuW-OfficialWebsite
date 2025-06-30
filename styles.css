@@ -731,11 +731,14 @@ section h2,
 /* ── Mobile Responsive Fixes ── */
 @media (max-width: 480px) {
   .container,
-  .nav-container,
   .carousel {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
+  .nav-container {
+    padding: 1.5rem 1rem;
+  }
+
   /* Hero */
   .hero-container {
     height: auto;

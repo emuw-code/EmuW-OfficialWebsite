@@ -36,13 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.classList.toggle('show');
     menuToggle.classList.toggle('menu-open'); // Add/remove menu-open class
     document.body.style.overflow = navLinks.classList.contains('show') ? 'hidden' : ''; // Prevent body scroll
-    if (navLinks.classList.contains('show')) {
-      menuIcon.style.opacity = '0';
-      closeIcon.style.opacity = '1';
-    } else {
-      menuIcon.style.opacity = '1';
-      closeIcon.style.opacity = '0';
-    }
   });
 
   // Smooth scroll for navigation links
@@ -59,8 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
           navLinks.classList.remove('show');
           menuToggle.classList.remove('menu-open');
           document.body.style.overflow = ''; // Restore body scroll
-          menuIcon.style.opacity = '1';
-          closeIcon.style.opacity = '0';
         }
 
         // Scroll to the target element

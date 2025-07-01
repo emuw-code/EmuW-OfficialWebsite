@@ -443,10 +443,10 @@ section h2 {
 }
 .video-embed {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 45%; /* Adjusted for a wider aspect ratio */
   height: 0;
   overflow: hidden;
-  max-width: 760px;
+  max-width: 800px; /* Wider to prevent clipping */
   margin: 0 auto;
   background: #000;
   border-radius: 12px;
@@ -627,19 +627,19 @@ section h2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    padding: 0 2rem;
+    padding: 0 4rem;
   }
 
   .link-item {
     width: 100%;
-    height: 110px;
+    height: 100px;
   }
   .link-item svg {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
   }
   .link-label {
-    font-size: 0.8rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -678,11 +678,11 @@ section h2 {
 
   .links-container {
     gap: 1rem;
-    padding: 0 1rem;
+    padding: 0 3rem;
   }
 
   .link-item {
-    height: 90px;
+    height: 80px;
   }
   .link-item svg {
     width: 24px;

@@ -252,8 +252,7 @@ section h2 {
   margin-bottom: 1.5rem;
   color: var(--accent);
   letter-spacing: 0.05em;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-  filter: blur(0.5px);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
 }
 .hero-brand {
   text-align: center;
@@ -443,10 +442,10 @@ section h2 {
 }
 .video-embed {
   position: relative;
-  padding-bottom: 45%; /* Adjusted for a wider aspect ratio */
+  padding-bottom: 52%;
   height: 0;
   overflow: hidden;
-  max-width: 800px; /* Wider to prevent clipping */
+  max-width: 100%;
   margin: 0 auto;
   background: #000;
   border-radius: 12px;
@@ -609,6 +608,7 @@ section h2 {
   .hero-subtitle {
     font-size: 1rem;
     padding: 0 1rem;
+    filter: none;
   }
 
   section h2 {
@@ -632,7 +632,7 @@ section h2 {
 
   .link-item {
     width: 100%;
-    height: 100px;
+    height: 120px;
   }
   .link-item svg {
     width: 32px;
@@ -682,7 +682,7 @@ section h2 {
   }
 
   .link-item {
-    height: 80px;
+    height: 100px;
   }
   .link-item svg {
     width: 24px;

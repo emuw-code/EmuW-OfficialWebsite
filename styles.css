@@ -117,6 +117,7 @@
 /* ── Base ── */
 html {
   background-color: var(--bg);
+  scroll-behavior: smooth;
 }
 body {
   color: var(--text);
@@ -130,24 +131,11 @@ body {
   padding: 0 3rem; /* 画面左右に余白を入れる */
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1rem; /* 左右の余白を最小限に */
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 0.5rem; /* 左右の余白をさらに最小限に */
-  }
-}
-
 /* ── Section Spacing & Titles ── */
 section {
-  padding: 8rem 0;           /* 全セクション上下余白を均等に */
+  padding: 6rem 0;           /* 全セクション上下余白を均等に */
 }
-section h2,
-.usage h3 {
+section h2 {
   font-size: 3rem; /* タイトルサイズを統一 */
   text-align: center;
   margin-bottom: 2rem;
@@ -160,16 +148,16 @@ section h2,
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 1000;
 }
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 3rem;
+  padding: 1rem 3rem;
 }
 .logo img {
-  height: 64px;
+  height: 48px;
   width: auto;
 }
 .nav-links {
@@ -181,7 +169,7 @@ section h2,
   color: var(--text);
   text-decoration: none;
   transition: color 0.3s;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding: 0.5rem 1rem;
 }
 .nav-links li a:hover {
@@ -208,81 +196,26 @@ section h2,
   transition: opacity 0.3s ease-in-out;
 }
 
-/* By default, close icon is hidden */
 .menu-toggle .close-icon {
   opacity: 0;
 }
 
-/* When menu is open, hide menu icon */
 .menu-toggle.menu-open .menu-icon {
   opacity: 0;
 }
 
-/* When menu is open, show close icon */
 .menu-toggle.menu-open .close-icon {
   opacity: 1;
-}
-
-/* ── Mobile Menu ── */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-    z-index: 11;
-    font-size: 2.5rem;
-  }
-  .nav-links {
-    display: flex; /* Keep as flex to allow transitions */
-    flex-direction: column;
-    background-color: var(--subtone);
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    padding-top: 6rem;
-    align-items: center;
-    z-index: 10;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none; /* Prevent interaction when hidden */
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-  }
-
-  .nav-links.show {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .nav-links li {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-  }
-
-  .nav-links.show li {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: var(--delay);
-  }
-
-  .nav-links.show li:nth-child(1) { --delay: 0.1s; }
-  .nav-links.show li:nth-child(2) { --delay: 0.2s; }
-  .nav-links.show li:nth-child(3) { --delay: 0.3s; }
-  .nav-links.show li:nth-child(4) { --delay: 0.4s; }
-  .nav-links.show li:nth-child(5) { --delay: 0.5s; }
-  .nav-links.show li:nth-child(6) { --delay: 0.6s; }
 }
 
 /* ── Hero ── */
 .hero {
   background-color: var(--subtone);
-  min-height: calc(100vh - 96px); /* Adjust based on navbar height */
+  padding-top: 68px; /* navbar height */
 }
 
-/* ── Hero セクションへのプロフィール画像背景追加 ── */
 .hero {
-  position: relative; /* 擬似要素を重ねるために相対位置 */
+  position: relative;
   background-color: var(--subtone);
   overflow: hidden;
 }
@@ -291,12 +224,12 @@ section h2,
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 120%; /* 画面より少し大きめに */
+  width: 120%;
   height: 120%;
   transform: translate(-50%, -50%);
   background: url('assets/images/EmuW_pf.png') center center / cover no-repeat;
-  opacity: 0.06; /* 薄めの透過 */
-  pointer-events: none; /* 背景としてのみ機能 */
+  opacity: 0.06;
+  pointer-events: none;
   z-index: 0;
 }
 .hero-container {
@@ -304,7 +237,7 @@ section h2,
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 96px); /* Adjust based on navbar height */
+  min-height: calc(100vh - 68px); /* navbar height */
   text-align: center;
   position: relative;
   z-index: 1;
@@ -314,60 +247,36 @@ section h2,
   border-radius: 50%;
   margin-bottom: 1rem;
 }
-.hero-title {
-  font-size: 2.5rem;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-}
 .hero-subtitle {
-  font-size: 1.4rem; /* 少し大きく */
+  font-size: 1.2rem;
   margin-bottom: 1.5rem;
-  color: var(--accent); /* Change to accent color for a richer feel */
-  letter-spacing: 0.05em; /* 文字間隔を広げてエレガントに */
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Add a subtle glow */
-  filter: blur(0.5px); /* Add a slight blur effect */
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
 }
-/* ブランドロゴ的に中央揃え */
 .hero-brand {
   text-align: center;
-  margin-bottom: 2rem; /* ヒーロー内との上下間隔 */
+  margin-bottom: 2rem;
 }
 
-/* メインタイトル：大きく、存在感をもたせる */
 .brand-main {
-  font-size: 4rem; /* 大きめのサイズ */
+  font-size: 4rem;
   font-weight: 700;
   color: var(--accent);
   line-height: 1;
   margin: 0;
-  font-family: 'Playfair Display', serif; /* 上品なセリフ体 */
+  font-family: 'Playfair Display', serif;
 }
 
-/* サブタイトル：小さめに、軽やかに */
 .brand-sub {
-  font-size: 1.25rem; /* メインの1/3スケールくらい */
+  font-size: 1.25rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.75); /* やや薄めの白で軽さを演出 */
+  color: rgba(255, 255, 255, 0.75);
   margin: 0.5rem 0 0;
-  font-family: 'Montserrat', sans-serif; /* メインと差をつけるサンセリフ */
+  font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.1em; /* 少し字間を開けてスタイリッシュに */
+  letter-spacing: 0.1em;
 }
-
-/* .btn {
-  display: inline-block;
-  border: 2px solid var(--accent);
-  padding: 0.75rem 1.5rem;
-  background: none;
-  color: var(--text);
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s;
-}
-.btn:hover {
-  background: var(--accent);
-  color: var(--bg);
-} */
 
 /* ── Listen Now ── */
 .listen .container {
@@ -383,9 +292,9 @@ section h2,
 .listen iframe {
   display: block;
   width: 100%;
-  height: 352px; /* Set a fixed height for both iframes */
+  height: 352px;
   border-radius: 12px;
-  margin: 0 auto; /* 左右均等に余白を */
+  margin: 0 auto;
 }
 
 /* ── About EmuW ── */
@@ -412,13 +321,13 @@ section h2,
   display: flex;
   gap: 2rem;
   overflow-x: auto;
-  padding: 2rem 1rem; /* Add horizontal padding */
+  padding: 2rem 1rem;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 }
 .album-item {
-  flex: 0 0 auto; /* アイテムの伸縮を制御 */
-  width: 220px; /* デスクトップでのデフォルト幅 */
+  flex: 0 0 auto;
+  width: 220px;
   background-color: var(--subtone);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
@@ -444,7 +353,7 @@ section h2,
   flex-direction: column;
   gap: 0.75rem;
   width: 100%;
-  margin-top: auto; /* タイトル高さに関わらずボタンを下に揃える */
+  margin-top: auto;
 }
 .btn-link {
   display: block;
@@ -467,15 +376,14 @@ section h2,
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem; /* Space between icon and text */
+  gap: 0.5rem;
 }
 
 .btn-link.icon-link svg {
-  width: 18px; /* Smaller icon size for music links */
+  width: 18px;
   height: 18px;
   fill: var(--accent);
   transition: fill 0.3s;
-  margin-bottom: 0; /* Override default margin-bottom */
 }
 
 .btn-link.icon-link i {
@@ -492,16 +400,13 @@ section h2,
   fill: var(--bg);
 }
 
-/* ── カルーセル矢印 ── */
-/* ── Carousel wrapper: 枠外にはみ出さないよう overflow:hidden ── */
 .carousel {
   position: relative;
-  padding: 0 3rem; /* 矢印ボタン分の左右余白 */
-  scroll-padding-left: 3rem; /* カルーセル全体の左端パディング */
-  scroll-padding-right: 3rem; /* カルーセル全体の右端パディング */
+  padding: 0 3rem;
+  scroll-padding-left: 3rem;
+  scroll-padding-right: 3rem;
 }
 
-/* 矢印ボタン */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -522,20 +427,8 @@ section h2,
   background: rgba(0, 0, 0, 0.8);
 }
 
-/* ── 矢印ボタン位置調整（必要なら↓で微調整） ── */
-/* .carousel-btn.prev {
-  left: 1rem;
-}
-.carousel-btn.next {
-  right: 1rem;
-} */
 .carousel-btn.prev { left: 1rem; }
 .carousel-btn.next { right: 1rem; }
-
-/* スクロールバーを隠す（好みで） */
-/* .album-container::-webkit-scrollbar {
-  display: none;
-} */
 
 /* ── Videos ── */
 .videos .container {
@@ -552,9 +445,10 @@ section h2,
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
   height: 0;
   overflow: hidden;
-  max-width: 660px; /* Set max-width to match listen section */
-  margin: 0 auto; /* Center the container */
+  max-width: 100%;
+  margin: 0 auto;
   background: #000;
+  border-radius: 12px;
 }
 
 .video-embed iframe {
@@ -563,8 +457,7 @@ section h2,
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  border: 0;
 }
 
 /* ── Links ── */
@@ -575,20 +468,22 @@ section h2,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 .link-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 140px;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   text-decoration: none;
   background: var(--bg);
   border: 1px solid var(--accent);
-  transition: background 0.3s, color 0.3s;
+  transition: all 0.3s ease;
 }
 .link-item:hover {
   transform: translateY(-4px);
@@ -596,9 +491,9 @@ section h2,
   background: var(--accent);
 }
 .link-label {
-  margin-top: 0.75rem;
-  font-size: 1.2rem; /* Increased size */
-  font-weight: bold; /* Added bold */
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
   color: var(--accent);
   transition: color 0.3s;
 }
@@ -607,70 +502,28 @@ section h2,
 }
 
 .link-item svg {
-  width: 48px;
-  height: 48px;
-  fill: var(--accent); /* Fill icons with accent color */
-  stroke: none; /* Remove strokes */
-  transition: fill 0.3s, transform 0.3s; /* Transition fill and transform */
-  margin-bottom: 0.5rem; /* Add space between icon and label */
+  width: 40px;
+  height: 40px;
+  fill: var(--accent);
+  transition: all 0.3s ease;
 }
 
 .link-item:hover svg {
-  fill: var(--bg); /* Change fill on hover */
-  transform: scale(1.1); /* Slightly enlarge on hover */
-}
-
-/* Specific styles for TikTok SVG */
-.link-item svg #Base_Shape {
-  fill: #000000; /* Black for the main shape */
-}
-.link-item svg #Cyan_Layer {
-  fill: #25F4EE; /* Cyan offset */
-}
-.link-item svg #Magenta_Layer {
-  fill: #FE2C55; /* Magenta offset */
-}
-
-.link-item:hover svg #Base_Shape {
-  fill: var(--accent); /* Change main color on hover */
-}
-.link-item:hover svg #Cyan_Layer,
-.link-item:hover svg #Magenta_Layer {
-  fill: var(--bg); /* Change offset colors on hover */
-}
-
-/* Specific styles for TikTok SVG */
-.link-item svg.feather-music path,
-.link-item svg.feather-music circle {
-  fill: currentColor; /* Use currentColor to inherit from parent */
-}
-
-.link-item:hover svg.feather-music path,
-.link-item:hover svg.feather-music circle {
-  fill: inherit; /* Inherit fill from parent on hover */
-}
-
-/* ── Usage (“楽曲のご利用について”) ── */
-.usage .container {
-  text-align: center;
-}
-.usage p {
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.6;
+  fill: var(--bg);
+  transform: scale(1.1);
 }
 
 /* ── Footer ── */
 .footer {
   background-color: var(--subtone);
   text-align: center;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 }
 
 /* ── Fade-in on Scroll ── */
 .fade-in-section {
   opacity: 0;
-  transform: translateY(40px) scale(0.95); /* Start slightly lower and smaller */
+  transform: translateY(40px);
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
@@ -691,14 +544,167 @@ section h2,
   visibility: visible;
 }
 
-/* ── Responsive Adjustments ── */
+/* ── Mobile Menu ── */
 @media (max-width: 768px) {
-  .nav-container {
-    padding: 1.5rem 1rem;
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .preloader-brand-main { font-size: 3rem; }
+  .preloader-brand-sub { font-size: 1rem; }
+
+  .menu-toggle {
+    display: block;
+    z-index: 1001;
+    font-size: 2rem;
+  }
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(43, 43, 43, 0.98);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    padding-top: 6rem;
+    align-items: center;
+    z-index: 1000;
+    transition: right 0.5s ease-in-out;
   }
 
-  .container,
-  .carousel {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .nav-links.show {
+    right: 0;
   }
+
+  .nav-links li {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .nav-links.show li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .nav-links.show li:nth-child(1) { transition-delay: 0.1s; }
+  .nav-links.show li:nth-child(2) { transition-delay: 0.2s; }
+  .nav-links.show li:nth-child(3) { transition-delay: 0.3s; }
+  .nav-links.show li:nth-child(4) { transition-delay: 0.4s; }
+  .nav-links.show li:nth-child(5) { transition-delay: 0.5s; }
+  .nav-links.show li:nth-child(6) { transition-delay: 0.6s; }
+
+  .hero-pf {
+    width: 120px;
+  }
+
+  .brand-main {
+    font-size: 3rem;
+  }
+
+  .brand-sub {
+    font-size: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    padding: 0 1rem;
+    filter: none;
+  }
+
+  section h2 {
+    font-size: 2.5rem;
+  }
+
+  .carousel { padding: 0; }
+  .carousel-btn.prev { left: 0.5rem; }
+  .carousel-btn.next { right: 0.5rem; }
+
+  .album-container {
+    gap: 2rem;
+    padding: 2rem 10vw;
+    scroll-snap-align: center;
+  }
+
+  .album-item {
+    width: 80vw;
+  }
+
+  .links-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0 4rem;
+  }
+
+  .link-item {
+    width: 100%;
+    height: 120px;
+  }
+  .link-item svg {
+    width: 32px;
+    height: 32px;
+  }
+  .link-label {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 1rem;
+  }
+
+  .preloader-brand-main { font-size: 2.5rem; }
+  .preloader-brand-sub { font-size: 0.875rem; }
+
+  .logo img {
+    height: 40px;
+  }
+
+  .hero-pf {
+    width: 100px;
+  }
+
+  .brand-main {
+    font-size: 2.2rem;
+  }
+
+  .brand-sub {
+    font-size: 0.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  section h2 {
+    font-size: 2rem;
+  }
+
+  .album-container {
+    padding: 2rem 5vw;
+  }
+
+  .album-item {
+    width: 90vw;
+  }
+
+  .links-container {
+    gap: 1rem;
+    padding: 0 3rem;
+  }
+
+  .link-item {
+    height: 100px;
+  }
+  .link-item svg {
+    width: 24px;
+    height: 24px;
+  }
+  .link-label {
+    font-size: 0.7rem;
+  }
+}

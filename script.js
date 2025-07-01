@@ -75,6 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.querySelector('.carousel-btn.prev');
   const nextBtn = document.querySelector('.carousel-btn.next');
 
+  // Randomize album order
+  const albumItems = Array.from(container.children);
+  for (let i = albumItems.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [albumItems[i], albumItems[j]] = [albumItems[j], albumItems[i]];
+  }
+  albumItems.forEach(item => container.appendChild(item));
+
   if (container && prevBtn && nextBtn) {
     const albumItem = container.querySelector('.album-item');
     if (albumItem) {

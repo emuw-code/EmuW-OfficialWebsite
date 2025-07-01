@@ -29,8 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // モバイルメニュー開閉
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
-  const menuIcon = menuToggle.querySelector('.menu-icon');
-  const closeIcon = menuToggle.querySelector('.close-icon');
 
   menuToggle.addEventListener('click', () => {
     const isMenuOpen = navLinks.classList.toggle('show');
@@ -42,23 +40,32 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', e => {
       const targetId = link.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
+      // Only prevent default for internal links
+      if (targetId.startsWith('#')) {
+        const targetElement = document.querySelector(targetId);
 
-      if (targetElement) {
-        e.preventDefault(); // Prevent default anchor behavior only if target exists
+        if (targetElement) {
+          e.preventDefault();
 
-        // Close the menu if it's open
-        if (navLinks.classList.contains('show')) {
-          navLinks.classList.remove('show');
-          menuToggle.classList.remove('menu-open');
-          document.body.style.overflow = ''; // Restore body scroll
+          // Close the menu if it's open
+          if (navLinks.classList.contains('show')) {
+            navLinks.classList.remove('show');
+            menuToggle.classList.remove('menu-open');
+            document.body.style.overflow = ''; // Restore body scroll
+          }
+
+          // Scroll to the target element
+          const offset = 68; // Navbar height
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = targetElement.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }
-
-        // Scroll to the target element
-        window.scrollTo({
-          top: targetElement.offsetTop - 60, // Adjust for sticky nav height
-          behavior: 'smooth'
-        });
       }
     });
   });
@@ -68,17 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.querySelector('.carousel-btn.prev');
   const nextBtn = document.querySelector('.carousel-btn.next');
 
-  // スクロール量は1アイテム分（＋マージン）に合わせて
-  // album-item の幅と album-container の gap を考慮
-  const albumItem = container.querySelector('.album-item');
-  const itemWidth = albumItem.offsetWidth + parseFloat(getComputedStyle(container).gap);
+  if (container && prevBtn && nextBtn) {
+    const albumItem = container.querySelector('.album-item');
+    if (albumItem) {
+      const itemWidth = albumItem.offsetWidth + parseFloat(getComputedStyle(container).gap);
 
-  prevBtn.addEventListener('click', () => {
-    container.scrollBy({ left: -itemWidth, behavior: 'smooth' });
-  });
-  nextBtn.addEventListener('click', () => {
-    container.scrollBy({ left: itemWidth, behavior: 'smooth' });
-  });
+      prevBtn.addEventListener('click', () => {
+        container.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+      });
+      nextBtn.addEventListener('click', () => {
+        container.scrollBy({ left: itemWidth, behavior: 'smooth' });
+      });
+    }
+  }
 
   // フェードイン・オン・スクロール
   const fadeInSections = document.querySelectorAll('.fade-in-section');

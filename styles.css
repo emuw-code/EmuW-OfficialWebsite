@@ -284,11 +284,12 @@ section h2 {
 .listen-item {
   width: 100%;
   max-width: 660px;
+  height: 450px;
 }
 .listen iframe {
   display: block;
   width: 100%;
-  height: 352px;
+  height: 100%;
   border-radius: 12px;
   margin: 0 auto;
 }

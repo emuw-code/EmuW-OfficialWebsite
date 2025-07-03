@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';
   });
 
+  // GSAP Animations
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.fromTo('.hero-pf', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '+=0.5');
+  tl.fromTo('.brand-main', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
+  tl.fromTo('.brand-sub', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
+  tl.fromTo('.hero-subtitle', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
+
   // Smooth scroll for navigation links
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', e => {
@@ -97,7 +105,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // GSAP ScrollTrigger Animations
+  gsap.registerPlugin(ScrollTrigger);
+
+  const sections = document.querySelectorAll('.fade-in-section');
+
+  sections.forEach(section => {
+    gsap.fromTo(section, 
+      { opacity: 0, y: 50 }, 
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%', // Trigger animation when the top of the section is 80% from the top of the viewport
+          toggleActions: 'play none none none',
+        }
+      }
+    );
+  });
+
   // フェードイン・オン・スクロール
+  /*
   const fadeInSections = document.querySelectorAll('.fade-in-section');
 
   const observerOptions = {
@@ -118,4 +148,5 @@ document.addEventListener('DOMContentLoaded', () => {
   fadeInSections.forEach(section => {
     observer.observe(section);
   });
+  */
 });

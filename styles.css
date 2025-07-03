@@ -121,8 +121,12 @@ html {
 }
 body {
   color: var(--text);
-  font-family: 'Playfair Display', serif;
+  font-family: 'Lato', 'Noto Sans JP', sans-serif;
   line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
 }
 .container {
   width: 100%;
@@ -333,6 +337,11 @@ section h2 {
   flex-direction: column;
   align-items: center;
   scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.album-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
 }
 .album-item img {
   width: 100%;

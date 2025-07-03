@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Create and append cursor blob
+  const cursorBlob = document.createElement('div');
+  cursorBlob.classList.add('cursor-blob');
+  document.body.appendChild(cursorBlob);
+
+  // Move cursor blob with GSAP
+  document.addEventListener('mousemove', (e) => {
+    gsap.to(cursorBlob, { 
+      duration: 0.3, 
+      x: e.clientX, 
+      y: e.clientY, 
+      ease: 'power2.out'
+    });
+  });
+
   // Preloader
   const preloader = document.getElementById('preloader');
   const preloaderPercentage = document.getElementById('preloader-percentage');

@@ -30,7 +30,6 @@
 .preloader-title {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: var(--accent);
   display: flex;
   flex-direction: column;
   align-items: center; /* 中央揃え */
@@ -39,7 +38,9 @@
 .preloader-brand-main {
   font-size: 4rem; /* brand-main と同じサイズ */
   font-weight: 700;
-  color: var(--accent);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   line-height: 1;
   display: block; /* 改行 */
   font-family: 'Playfair Display', serif; /* フォントを適用 */
@@ -96,7 +97,7 @@
 
 #preloader-percentage {
   font-size: 1.2rem;
-  color: var(--text);
+  color: var(--accent);
 }
 
 /* ── Root Variables ── */
@@ -104,7 +105,8 @@
   --bg: #121212;
   --text: #ffffff;
   --accent: #e8b38f;
-  --accent-2: #8faae8; /* New accent color for aurora */
+  --accent-2: #8faae8; /* Accent color for aurora */
+  --accent-gradient: linear-gradient(45deg, #f8e9dd 0%, #e8b38f 100%);
   --subtone: #2b2b2b;
 }
 
@@ -119,7 +121,25 @@
 html {
   background-color: var(--bg);
   scroll-behavior: smooth;
+  cursor: none;
 }
+
+.cursor-blob {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.3;
+  filter: blur(100px);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: transform 0.1s ease-out;
+}
+
 body {
   color: var(--text);
   font-family: 'Lato', 'Noto Sans JP', sans-serif;
@@ -144,6 +164,9 @@ section h2 {
   font-size: 3rem; /* タイトルサイズを統一 */
   text-align: center;
   margin-bottom: 2rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ── Navigation ── */
@@ -287,7 +310,6 @@ section h2 {
   margin-bottom: 1.5rem;
   color: var(--accent);
   letter-spacing: 0.05em;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
 }
 .hero-brand {
   text-align: center;
@@ -297,10 +319,12 @@ section h2 {
 .brand-main {
   font-size: 4rem;
   font-weight: 700;
-  color: var(--accent);
   line-height: 1;
   margin: 0;
   font-family: 'Playfair Display', serif;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .brand-sub {
@@ -412,8 +436,9 @@ section h2 {
   transition: background 0.3s, color 0.3s;
 }
 .btn-link:hover {
-  background: var(--accent);
-  color: var(--bg);
+  background: var(--accent-gradient);
+  color: #333; /* Dark text for readability on gradient */
+  border-color: transparent;
 }
 
 .btn-link.icon-link {
@@ -437,11 +462,11 @@ section h2 {
 }
 
 .btn-link.icon-link:hover i {
-    color: var(--bg);
+    color: #333;
 }
 
 .btn-link.icon-link:hover svg {
-  fill: var(--bg);
+  fill: #333;
 }
 
 .carousel {
@@ -653,6 +678,9 @@ section h2 {
 
   .brand-main {
     font-size: 3rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .brand-sub {
@@ -667,6 +695,9 @@ section h2 {
 
   section h2 {
     font-size: 2.5rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .carousel { padding: 0; }
@@ -722,6 +753,9 @@ section h2 {
 
   .brand-main {
     font-size: 2.2rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .brand-sub {
@@ -734,6 +768,9 @@ section h2 {
 
   section h2 {
     font-size: 2rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .album-container {

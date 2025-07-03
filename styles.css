@@ -104,6 +104,7 @@
   --bg: #121212;
   --text: #ffffff;
   --accent: #e8b38f;
+  --accent-2: #8faae8; /* New accent color for aurora */
   --subtone: #2b2b2b;
 }
 
@@ -147,8 +148,11 @@ section h2 {
 
 /* ── Navigation ── */
 .navbar {
-  background-color: var(--subtone);
-  position: fixed; /* Change to fixed */
+  background-color: rgba(43, 43, 43, 0.5); /* var(--subtone) with alpha */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -219,7 +223,38 @@ section h2 {
   position: relative;
   overflow: hidden;
 }
+
+@keyframes aurora-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 20% 20%, var(--accent) 0%, transparent 30%),
+              radial-gradient(circle at 80% 70%, var(--accent-2) 0%, transparent 30%);
+  background-size: 200% 200%;
+  animation: aurora-animation 20s ease-in-out infinite;
+  opacity: 0.2;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -329,7 +364,10 @@ section h2 {
 .album-item {
   flex: 0 0 auto;
   width: 220px;
-  background-color: var(--subtone);
+  background-color: rgba(43, 43, 43, 0.5); /* var(--subtone) with alpha */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   padding: 1rem;
@@ -487,7 +525,9 @@ section h2 {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   text-decoration: none;
-  background: var(--bg);
+  background: rgba(43, 43, 43, 0.5); /* var(--subtone) with alpha */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
   border: 1px solid var(--accent);
   transition: all 0.3s ease;
 }

@@ -16,30 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Preloader
   const preloader = document.getElementById('preloader');
-  const preloaderPercentage = document.getElementById('preloader-percentage');
-  const preloaderSlider = document.getElementById('preloader-slider');
   const mainContent = document.getElementById('main-content');
-  let currentProgress = 0;
 
-  const updateProgress = () => {
-    if (currentProgress < 100) {
-      currentProgress += 5; // 固定値で進捗を増やす
-      if (currentProgress > 100) currentProgress = 100;
-      preloaderPercentage.textContent = `${currentProgress}%`;
-      preloaderSlider.value = currentProgress;
-      setTimeout(updateProgress, 100); // 固定の更新間隔
-    } else {
-      setTimeout(() => {
-        preloader.classList.add('hidden');
-        preloader.addEventListener('transitionend', () => {
-          preloader.remove();
-        });
-        mainContent.classList.add('visible');
-      }, 500);
-    }
-  };
-
-  updateProgress();
+  // Remove preloader after a delay
+  setTimeout(() => {
+    preloader.classList.add('hidden');
+    preloader.addEventListener('transitionend', () => {
+      preloader.remove();
+    });
+    mainContent.classList.add('visible');
+  }, 2000); // Display preloader for 2 seconds
 
   // モバイルメニュー開閉
   const menuToggle = document.getElementById('menuToggle');

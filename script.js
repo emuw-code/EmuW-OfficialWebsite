@@ -1,10 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Create and append cursor blob
+  // Create and append cursor elements
   const cursorBlob = document.createElement('div');
   cursorBlob.classList.add('cursor-blob');
   document.body.appendChild(cursorBlob);
 
-  // Move cursor blob with GSAP
+  const cursorPointer = document.createElement('div');
+  cursorPointer.classList.add('cursor-pointer');
+  document.body.appendChild(cursorPointer);
+
+  // Move cursor elements with GSAP
   document.addEventListener('mousemove', (e) => {
     gsap.to(cursorBlob, { 
       duration: 0.3, 
@@ -12,6 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
       y: e.clientY, 
       ease: 'power2.out'
     });
+    gsap.to(cursorPointer, { 
+      duration: 0.1, 
+      x: e.clientX, 
+      y: e.clientY, 
+      ease: 'power2.out'
+    });
+  });
+
+  // Add click effect
+  document.addEventListener('mousedown', () => {
+    cursorBlob.classList.add('clicked');
+  });
+
+  document.addEventListener('mouseup', () => {
+    cursorBlob.classList.remove('clicked');
   });
 
   // Preloader
@@ -43,7 +62,35 @@ document.addEventListener('DOMContentLoaded', () => {
   tl.fromTo('.hero-pf', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '+=0.5');
   tl.fromTo('.brand-main', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
   tl.fromTo('.brand-sub', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
-  tl.fromTo('.hero-subtitle', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
+
+  // Text animation for hero-subtitle
+  const subtitle = document.querySelector('.hero-subtitle');
+  const chars = subtitle.textContent.split('');
+  subtitle.innerHTML = '';
+  chars.forEach(char => {
+    const span = document.createElement('span');
+    span.className = 'char';
+    span.style.display = 'inline-block'; // Ensure proper spacing
+    span.textContent = char;
+    subtitle.appendChild(span);
+  });
+
+  tl.to('.hero-subtitle .char', {
+    opacity: 1,
+    y: 0,
+    stagger: 0.05,
+    duration: 1,
+    ease: 'power3.out'
+  }, '-=0.5');
+
+  // Breathing animation for subtitle
+  tl.to('.hero-subtitle', {
+    opacity: 0.8,
+    duration: 2,
+    yoyo: true,
+    repeat: -1,
+    ease: 'sine.inOut'
+  });
 
   // Smooth scroll for navigation links
   navLinks.querySelectorAll('a').forEach(link => {

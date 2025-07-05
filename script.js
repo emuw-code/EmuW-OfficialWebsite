@@ -180,25 +180,48 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   });
 
-  // Enhanced scroll animations for album items
+  // Enhanced scroll animations for album items based on device type
+  const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const albumItemsForScroll = document.querySelectorAll('.album-item');
-  albumItemsForScroll.forEach(item => {
-    gsap.fromTo(item, 
-      { opacity: 0, y: 50, rotationZ: -10 }, 
-      {
-        opacity: 1,
-        y: 0,
-        rotationZ: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 90%',
-          toggleActions: 'play none none none',
+
+  if (isTouchDevice()) {
+    // Mobile: Simpler, more performant animation
+    albumItemsForScroll.forEach(item => {
+      gsap.fromTo(item, 
+        { opacity: 0, y: 50 }, 
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          }
         }
-      }
-    );
-  });
+      );
+    });
+  } else {
+    // Desktop: Richer rotation animation
+    albumItemsForScroll.forEach(item => {
+      gsap.fromTo(item, 
+        { opacity: 0, y: 50, rotationZ: -10 }, 
+        {
+          opacity: 1,
+          y: 0,
+          rotationZ: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          }
+        }
+      );
+    });
+  }
 
   // Particle.js initialization - Elegant version
   const canvas = document.getElementById('particle-canvas');

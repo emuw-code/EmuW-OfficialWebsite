@@ -39,18 +39,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('scroll', onScroll);
 
-  // Preloader
+  // --- Preloader Animation ---
   const preloader = document.getElementById('preloader');
   const mainContent = document.getElementById('main-content');
+  const progressBar = document.getElementById('preloader-progress-bar');
+  const percentage = document.getElementById('preloader-percentage');
+  const preloaderBrandMain = document.querySelector('.preloader-brand-main');
+  const preloaderBrandSub = document.querySelector('.preloader-brand-sub');
 
-  // Remove preloader after a delay
-  setTimeout(() => {
-    preloader.classList.add('hidden');
-    preloader.addEventListener('transitionend', () => {
-      preloader.remove();
-    });
-    mainContent.classList.add('visible');
-  }, 2000); // Display preloader for 2 seconds
+  const preloaderTl = gsap.timeline({ 
+    onComplete: () => {
+      // Ensure main content is visible after preloader is done
+      gsap.set(mainContent, { opacity: 1, visibility: 'visible' });
+    }
+  });
+
+  preloaderTl
+    .to([preloaderBrandMain, preloaderBrandSub], { opacity: 1, duration: 1, ease: 'power1.in' })
+    .to(progressBar, { 
+      width: '100%',
+      duration: 2,
+      ease: 'power2.inOut',
+      onUpdate: function() {
+        const progress = Math.round(this.progress() * 100);
+        percentage.textContent = `${progress}%`;
+      }
+    }, '-=0.5')
+    .to(preloader.querySelector('.preloader-content'), { opacity: 0, duration: 0.5 }, '+=0.2')
+    .to('.preloader-curtain.left', { x: '-100%', duration: 1, ease: 'power3.inOut' })
+    .to('.preloader-curtain.right', { x: '100%', duration: 1, ease: 'power3.inOut' }, '<')
+    .set(preloader, { display: 'none' });
+
+  // --- End of Preloader Animation ---
 
   // モバイルメニュー開閉
   const menuToggle = document.getElementById('menuToggle');
@@ -179,4 +199,150 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
+
+  // Enhanced scroll animations for album items based on device type
+  const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const albumItemsForScroll = document.querySelectorAll('.album-item');
+
+  if (isTouchDevice()) {
+    // Mobile: Simpler, more performant animation
+    albumItemsForScroll.forEach(item => {
+      gsap.fromTo(item, 
+        { opacity: 0, y: 50 }, 
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          }
+        }
+      );
+    });
+  } else {
+    // Desktop: Richer rotation animation
+    albumItemsForScroll.forEach(item => {
+      gsap.fromTo(item, 
+        { opacity: 0, y: 50, rotationZ: -10 }, 
+        {
+          opacity: 1,
+          y: 0,
+          rotationZ: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          }
+        }
+      );
+    });
+  }
+
+  // Particle.js initialization - Elegant version
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particlesArray;
+
+  // get mouse position
+  const mouse = {
+      x: null,
+      y: null,
+      radius: (canvas.height/120) * (canvas.width/120) // smaller radius
+  }
+
+  window.addEventListener('mousemove', 
+      function(event) {
+          mouse.x = event.x;
+          mouse.y = event.y;
+      }
+  );
+
+  // create particle
+  class Particle {
+      constructor(x, y, directionX, directionY, size, color) {
+          this.x = x;
+          this.y = y;
+          this.directionX = directionX;
+          this.directionY = directionY;
+          this.size = size;
+          this.color = color;
+      }
+      // method to draw individual particle
+      draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+          ctx.fillStyle = 'rgba(232, 179, 143, 0.15)'; // more transparent
+          ctx.fill();
+      }
+      // check particle position, check mouse position, move the particle, draw the particle
+      update() {
+          if (this.x > canvas.width || this.x < 0) {
+              this.directionX = -this.directionX;
+          }
+          if (this.y > canvas.height || this.y < 0) {
+              this.directionY = -this.directionY;
+          }
+
+          // move particle
+          this.x += this.directionX;
+          this.y += this.directionY;
+          // draw particle
+          this.draw();
+      }
+  }
+
+  // create particle array
+  function init() {
+      particlesArray = [];
+      let numberOfParticles = (canvas.height * canvas.width) / 25000; // fewer particles
+      for (let i = 0; i < numberOfParticles; i++) {
+          let size = (Math.random() * 2) + 1; // smaller size
+          let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+          let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+          let directionX = (Math.random() * 0.4) - 0.2; // slower movement
+          let directionY = (Math.random() * 0.4) - 0.2; // slower movement
+          let color = 'rgba(232, 179, 143, 0.15)';
+
+          particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+      }
+  }
+
+  // animation loop
+  function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0,0,innerWidth, innerHeight);
+
+      for (let i = 0; i < particlesArray.length; i++) {
+          particlesArray[i].update();
+      }
+  }
+
+  // resize event
+  window.addEventListener('resize', 
+      function(){
+          canvas.width = innerWidth;
+          canvas.height = innerHeight;
+          mouse.radius = ((canvas.height/120) * (canvas.height/120));
+          init();
+      }
+  );
+
+  // mouse out event
+  window.addEventListener('mouseout', 
+      function(){
+          mouse.x = undefined;
+          mouse.y = undefined;
+      }
+  )
+
+  init();
+  animate();
 });

@@ -17,6 +17,18 @@
   transition: opacity 1s ease-out, visibility 1s ease-out;
 }
 
+.preloader-curtain {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: var(--bg);
+  z-index: 10001;
+}
+
+.preloader-curtain.left { left: 0; }
+.preloader-curtain.right { right: 0; }
+
 #preloader.hidden {
   opacity: 0;
   visibility: hidden;
@@ -25,6 +37,8 @@
 .preloader-content {
   text-align: center;
   color: var(--text);
+  position: relative;
+  z-index: 10002; /* Ensure content is above the curtains */
 }
 
 .preloader-title {
@@ -33,21 +47,6 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* 中央揃え */
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
 
 .preloader-brand-main {
@@ -60,6 +59,13 @@
   display: block; /* 改行 */
   font-family: 'Playfair Display', serif; /* フォントを適用 */
   animation: pulse 2s infinite ease-in-out;
+  opacity: 0; /* Initially hidden for animation */
+}
+
+.preloader-brand-main .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .preloader-brand-sub {
@@ -71,11 +77,29 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-family: 'Montserrat', sans-serif; /* フォントを適用 */
+  opacity: 0; /* Initially hidden for animation */
 }
 
-.preloader-progress,
+.preloader-progress {
+  width: 200px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 1.5rem auto;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+#preloader-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--accent-gradient);
+  border-radius: 1px;
+}
+
 #preloader-percentage {
-  display: none;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* ── Root Variables ── */
@@ -86,6 +110,7 @@
   --accent-2: #8faae8; /* Accent color for aurora */
   --accent-gradient: linear-gradient(45deg, #f8e9dd 0%, #e8b38f 100%);
   --subtone: #2b2b2b;
+  --glass-bg: rgba(43, 43, 43, 0.5);
 }
 
 /* ── Reset ── */
@@ -126,6 +151,17 @@ body {
   color: var(--text);
   font-family: 'Lato', 'Noto Sans JP', sans-serif;
   line-height: 1.6;
+  position: relative;
+}
+
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -136,11 +172,25 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 3rem; /* 画面左右に余白を入れる */
+  position: relative;
+  z-index: 2;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  padding: 2rem;
 }
 
 /* ── Section Spacing & Titles ── */
 section {
   padding: 6rem 0;           /* 全セクション上下余白を均等に */
+  position: relative;
 }
 section h2 {
   font-size: 3rem; /* タイトルサイズを統一 */
@@ -153,7 +203,7 @@ section h2 {
 
 /* ── Navigation ── */
 .navbar {
-  background-color: rgba(43, 43, 43, 0.5); /* var(--subtone) with alpha */
+  background-color: var(--glass-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* For Safari */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -245,6 +295,20 @@ section h2 {
   overflow: hidden;
 }
 
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: url('assets/images/EmuW_pf.png') center center / cover no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
 @keyframes aurora-animation {
   0% {
     background-position: 0% 50%;
@@ -275,19 +339,6 @@ section h2 {
   z-index: 0;
 }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120%;
-  height: 120%;
-  transform: translate(-50%, -50%);
-  background: url('assets/images/EmuW_pf.png') center center / cover no-repeat;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 0;
-}
 .hero-container {
   display: flex;
   flex-direction: column;
@@ -405,9 +456,9 @@ section h2 {
 .album-item {
   flex: 0 0 auto;
   width: 220px;
-  background-color: rgba(43, 43, 43, 0.5); /* var(--subtone) with alpha */
+  background-color: var(--glass-bg);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
@@ -567,9 +618,9 @@ section h2 {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   text-decoration: none;
-  background: rgba(43, 43, 43, 0.5); /* var(--subtone) with alpha */
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--accent);
   transition: all 0.3s ease;
 }

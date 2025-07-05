@@ -1,37 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Create and append cursor elements
+  // Create and append cursor blob element
   const cursorBlob = document.createElement('div');
   cursorBlob.classList.add('cursor-blob');
   document.body.appendChild(cursorBlob);
 
-  const cursorPointer = document.createElement('div');
-  cursorPointer.classList.add('cursor-pointer');
-  document.body.appendChild(cursorPointer);
+  const moveCursor = (e) => {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-  // Move cursor elements with GSAP
-  document.addEventListener('mousemove', (e) => {
     gsap.to(cursorBlob, { 
       duration: 0.3, 
-      x: e.clientX, 
-      y: e.clientY, 
+      x: clientX, 
+      y: clientY, 
       ease: 'power2.out'
     });
-    gsap.to(cursorPointer, { 
-      duration: 0.1, 
-      x: e.clientX, 
-      y: e.clientY, 
-      ease: 'power2.out'
-    });
-  });
+  };
 
-  // Add click effect
-  document.addEventListener('mousedown', () => {
-    cursorBlob.classList.add('clicked');
-  });
+  const onMouseDown = () => cursorBlob.classList.add('clicked');
+  const onMouseUp = () => cursorBlob.classList.remove('clicked');
 
-  document.addEventListener('mouseup', () => {
-    cursorBlob.classList.remove('clicked');
-  });
+  // Event listeners for cursor movement and interaction
+  document.addEventListener('mousemove', moveCursor);
+  document.addEventListener('touchmove', moveCursor);
+  document.addEventListener('mousedown', onMouseDown);
+  document.addEventListener('mouseup', onMouseUp);
+  document.addEventListener('touchstart', onMouseDown);
+  document.addEventListener('touchend', onMouseUp);
+
+  // Hide cursor on scroll, show after scroll ends
+  let scrollTimeout;
+  const onScroll = () => {
+    cursorBlob.style.visibility = 'hidden';
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      cursorBlob.style.visibility = 'visible';
+    }, 150);
+  };
+
+  document.addEventListener('scroll', onScroll);
 
   // Preloader
   const preloader = document.getElementById('preloader');
@@ -83,10 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ease: 'power3.out'
   }, '-=0.5');
 
-  // Breathing animation for subtitle
+  // Glowing animation for subtitle
   tl.to('.hero-subtitle', {
-    opacity: 0.8,
-    duration: 2,
+    textShadow: '0 0 10px rgba(248, 233, 221, 0.5), 0 0 20px rgba(232, 179, 143, 0.3)',
+    duration: 2.5,
     yoyo: true,
     repeat: -1,
     ease: 'sine.inOut'
@@ -173,28 +179,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
-
-  // フェードイン・オン・スクロール
-  /*
-  const fadeInSections = document.querySelectorAll('.fade-in-section');
-
-  const observerOptions = {
-    root: null, // ビューポートをルートとする
-    rootMargin: '0px',
-    threshold: 0.1 // 要素の10%が見えたら発火
-  };
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target); // 一度表示されたら監視を停止
-      }
-    });
-  }, observerOptions);
-
-  fadeInSections.forEach(section => {
-    observer.observe(section);
-  });
-  */
 });

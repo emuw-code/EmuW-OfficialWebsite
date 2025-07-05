@@ -24,14 +24,14 @@
     <!-- /OGP -->
 
     <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body>
+    <canvas id="particle-canvas"></canvas>
     <div id="preloader">
       <div class="preloader-content">
         <h1 class="preloader-title">
@@ -79,7 +79,7 @@
           <h1 class="brand-main">EmuW</h1>
           <p class="brand-sub">Emotional Music World</p>
         </div>
-        <p class="hero-subtitle">あなたの心に響く音楽をお届けします</p>
+        <p class="hero-subtitle">心を包む&nbsp;&nbsp;彩り満ちる&nbsp;&nbsp;メロウな調べ</p>
         <!-- <button class="btn">チャンネル登録</button> -->
       </div>
     </header>
@@ -104,9 +104,11 @@
           <iframe
             allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
             frameborder="0"
-            style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px"
+            height="450"
+            style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px;"
             sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
             src="https://embed.music.apple.com/jp/album/own-my-crown/1816239005?theme=dark"
+            loading="lazy"
           ></iframe>
         </div>
       </div>
@@ -275,7 +277,7 @@
             <span class="link-label">TikTok</span>
           </a>
           <a
-            href="https://www.youtube.com/channel/UCEkFKj-QdqeqlLf--CegjCw"
+            href="https://www.youtube.com/@emotionalmusicworld-official"
             class="link-item"
             target="_blank"
           >
@@ -295,6 +297,8 @@
       </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

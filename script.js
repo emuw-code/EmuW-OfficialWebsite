@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
   menuToggle.addEventListener('click', () => {
     const isMenuOpen = navLinks.classList.toggle('show');
     menuToggle.classList.toggle('menu-open', isMenuOpen);
+    document.body.classList.toggle('menu-open', isMenuOpen);
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';
   });
 

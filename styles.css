@@ -708,19 +708,24 @@ section h2 {
     backdrop-filter: blur(10px);
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0; /* Changed from -100% */
     width: 100%;
     height: 100vh;
     padding-top: 6rem;
     align-items: center;
     z-index: 1000;
-    transition: right 0.5s ease-in-out;
-    will-change: right;
+    transition: transform 0.5s ease-in-out; /* Use transform for performance */
+    transform: translateX(100%); /* Start off-screen */
+    will-change: transform;
     backface-visibility: hidden;
   }
 
   .nav-links.show {
-    right: 0;
+    transform: translateX(0); /* Slide in */
+  }
+
+  body.menu-open .hero::before {
+      animation-play-state: paused;
   }
 
   .nav-links li {

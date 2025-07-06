@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('scroll', onScroll);
 
-  // --- Preloader Animation ---
+  // --- Preloader Animation --- 
   const preloader = document.getElementById('preloader');
   const mainContent = document.getElementById('main-content');
   const progressBar = document.getElementById('preloader-progress-bar');
@@ -50,12 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const preloaderTl = gsap.timeline({ 
     onComplete: () => {
       // Ensure main content is visible after preloader is done
-      gsap.set(mainContent, { opacity: 1, visibility: 'visible' });
+      gsap.to(mainContent, { opacity: 1, visibility: 'visible', duration: 1 });
     }
   });
 
   preloaderTl
-    .to([preloaderBrandMain, preloaderBrandSub], { opacity: 1, duration: 1, ease: 'power1.in' })
+    .to(preloaderBrandMain, { opacity: 1, duration: 0.5, ease: 'power1.in' })
+    .to(preloaderBrandSub, { opacity: 1, duration: 0.5, ease: 'power1.in' }, '-=0.2')
     .to(progressBar, { 
       width: '100%',
       duration: 2,

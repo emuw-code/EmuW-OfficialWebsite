@@ -59,7 +59,6 @@
   display: block; /* 改行 */
   font-family: 'Playfair Display', serif; /* フォントを適用 */
   animation: pulse 2s infinite ease-in-out;
-  opacity: 0; /* Initially hidden for animation */
 }
 
 .preloader-brand-main .char {
@@ -875,5 +874,22 @@ section h2 {
 
   .album-item {
     width: 40vw;
+  }
+}
+
+
+/* ── Keyframes ── */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 5px rgba(248, 233, 221, 0.2), 0 0 10px rgba(232, 179, 143, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(248, 233, 221, 0.5), 0 0 40px rgba(232, 179, 143, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px rgba(248, 233, 221, 0.2), 0 0 10px rgba(232, 179, 143, 0.1);
   }
 }

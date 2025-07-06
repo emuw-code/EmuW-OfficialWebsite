@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const preloaderTl = gsap.timeline({ 
     onComplete: () => {
       // Ensure main content is visible after preloader is done
-      gsap.to(mainContent, { opacity: 1, visibility: 'visible', duration: 1 });
+      gsap.to(mainContent, { opacity: 1, visibility: 'visible', duration: 0.5 });
     }
   });
 
@@ -59,16 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
     .to(preloaderBrandSub, { opacity: 1, duration: 0.5, ease: 'power1.in' }, '-=0.2')
     .to(progressBar, { 
       width: '100%',
-      duration: 2,
+      duration: 1.2, // Shorten progress bar animation
       ease: 'power2.inOut',
       onUpdate: function() {
         const progress = Math.round(this.progress() * 100);
         percentage.textContent = `${progress}%`;
       }
     }, '-=0.5')
-    .to(preloader.querySelector('.preloader-content'), { opacity: 0, duration: 0.5 }, '+=0.2')
-    .to('.preloader-curtain.left', { x: '-100%', duration: 1, ease: 'power3.inOut' })
-    .to('.preloader-curtain.right', { x: '100%', duration: 1, ease: 'power3.inOut' }, '<')
+    .to(preloader.querySelector('.preloader-content'), { opacity: 0, duration: 0.3 }, '+=0.1') // Shorten fade out
+    .to('.preloader-curtain.left', { x: '-100%', duration: 0.8, ease: 'power3.inOut' }) // Shorten curtain animation
+    .to('.preloader-curtain.right', { x: '100%', duration: 0.8, ease: 'power3.inOut' }, '<') // Shorten curtain animation
     .set(preloader, { display: 'none' });
 
   // --- End of Preloader Animation ---

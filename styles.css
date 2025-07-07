@@ -737,7 +737,11 @@ section h2 {
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
 
-  .nav-links.show li {
+  body.menu-open {
+  overflow: hidden;
+}
+
+.nav-links.show li {
     opacity: 1;
     transform: translateY(0);
   }

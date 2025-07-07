@@ -17,6 +17,18 @@
   transition: opacity 1s ease-out, visibility 1s ease-out;
 }
 
+.preloader-curtain {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: var(--bg);
+  z-index: 10001;
+}
+
+.preloader-curtain.left { left: 0; }
+.preloader-curtain.right { right: 0; }
+
 #preloader.hidden {
   opacity: 0;
   visibility: hidden;
@@ -25,6 +37,8 @@
 .preloader-content {
   text-align: center;
   color: var(--text);
+  position: relative;
+  z-index: 10002; /* Ensure content is above the curtains */
 }
 
 .preloader-title {
@@ -35,31 +49,23 @@
   align-items: center; /* 中央揃え */
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 .preloader-brand-main {
   font-size: 4rem; /* brand-main と同じサイズ */
   font-weight: 700;
   background: var(--accent-gradient);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
   display: block; /* 改行 */
   font-family: 'Playfair Display', serif; /* フォントを適用 */
   animation: pulse 2s infinite ease-in-out;
+}
+
+.preloader-brand-main .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .preloader-brand-sub {
@@ -71,11 +77,29 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-family: 'Montserrat', sans-serif; /* フォントを適用 */
+  opacity: 0; /* Initially hidden for animation */
 }
 
-.preloader-progress,
+.preloader-progress {
+  width: 200px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 1.5rem auto;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+#preloader-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--accent-gradient);
+  border-radius: 1px;
+}
+
 #preloader-percentage {
-  display: none;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* ── Root Variables ── */
@@ -173,8 +197,22 @@ section h2 {
   text-align: center;
   margin-bottom: 2rem;
   background: var(--accent-gradient);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: relative; /* For reveal effect */
+  overflow: hidden;   /* For reveal effect */
+}
+
+.reveal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  z-index: 1;
+  will-change: transform;
 }
 
 /* ── Navigation ── */
@@ -344,7 +382,7 @@ section h2 {
   overflow: hidden; /* For animation */
 }
 
-.hero-subtitle .char {
+.subtitle-part {
     display: inline-block;
     opacity: 0;
     transform: translateY(20px);
@@ -361,6 +399,7 @@ section h2 {
   margin: 0;
   font-family: 'Playfair Display', serif;
   background: var(--accent-gradient);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -446,8 +485,8 @@ section h2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .album-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8) !important;
 }
 .album-item img {
   width: 100%;
@@ -659,6 +698,46 @@ section h2 {
   visibility: visible;
 }
 
+/* --- NEW: Evolved Cursor Blob --- */
+.cursor-blob.interactive {
+    width: 60px;
+    height: 60px;
+    background: var(--text);
+    mix-blend-mode: difference;
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* --- NEW: Shimmer Effect for Buttons --- */
+.btn-link, .link-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-link::after, .link-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease-out;
+}
+
+.btn-link:hover::after, .link-item:hover::after {
+  left: 150%;
+}
+
+/* --- NEW: Parallax for Hero Background --- */
+.hero::before, .hero::after {
+    will-change: transform;
+}
+
+.hero::after {
+    transform: translate(-50%, -50%) translateY(var(--parallax-y, 0px));
+}
+
 /* ── Mobile Menu ── */
 @media (max-width: 768px) {
   .container {
@@ -685,36 +764,47 @@ section h2 {
     backdrop-filter: blur(10px);
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0; /* Changed from -100% */
     width: 100%;
     height: 100vh;
     padding-top: 6rem;
     align-items: center;
     z-index: 1000;
-    transition: right 0.5s ease-in-out;
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* Smoother easing */
+    transform: translateX(100%); /* Start off-screen */
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   .nav-links.show {
-    right: 0;
+    transform: translateX(0); /* Slide in */
+  }
+
+  body.menu-open .hero::before {
+      animation-play-state: paused;
   }
 
   .nav-links li {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
 
-  .nav-links.show li {
+  body.menu-open .hero::before {
+  animation-play-state: paused;
+}
+
+.nav-links.show li {
     opacity: 1;
     transform: translateY(0);
   }
   
-  .nav-links.show li:nth-child(1) { transition-delay: 0.1s; }
-  .nav-links.show li:nth-child(2) { transition-delay: 0.2s; }
-  .nav-links.show li:nth-child(3) { transition-delay: 0.3s; }
-  .nav-links.show li:nth-child(4) { transition-delay: 0.4s; }
-  .nav-links.show li:nth-child(5) { transition-delay: 0.5s; }
-  .nav-links.show li:nth-child(6) { transition-delay: 0.6s; }
+  .nav-links.show li:nth-child(1) { transition-delay: 0.2s; }
+  .nav-links.show li:nth-child(2) { transition-delay: 0.3s; }
+  .nav-links.show li:nth-child(3) { transition-delay: 0.4s; }
+  .nav-links.show li:nth-child(4) { transition-delay: 0.5s; }
+  .nav-links.show li:nth-child(5) { transition-delay: 0.6s; }
+  .nav-links.show li:nth-child(6) { transition-delay: 0.7s; }
 
   .hero-pf {
     width: 120px;
@@ -723,7 +813,8 @@ section h2 {
   .brand-main {
     font-size: 3rem;
     background: var(--accent-gradient);
-    -webkit-background-clip: text;
+    background-clip: text;
+  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -740,7 +831,8 @@ section h2 {
   section h2 {
     font-size: 2.5rem;
     background: var(--accent-gradient);
-    -webkit-background-clip: text;
+    background-clip: text;
+  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -798,7 +890,8 @@ section h2 {
   .brand-main {
     font-size: 2.2rem;
     background: var(--accent-gradient);
-    -webkit-background-clip: text;
+    background-clip: text;
+  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -813,7 +906,8 @@ section h2 {
   section h2 {
     font-size: 2rem;
     background: var(--accent-gradient);
-    -webkit-background-clip: text;
+    background-clip: text;
+  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -851,5 +945,22 @@ section h2 {
 
   .album-item {
     width: 40vw;
+  }
+}
+
+
+/* ── Keyframes ── */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 5px rgba(248, 233, 221, 0.2), 0 0 10px rgba(232, 179, 143, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(248, 233, 221, 0.5), 0 0 40px rgba(232, 179, 143, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px rgba(248, 233, 221, 0.2), 0 0 10px rgba(232, 179, 143, 0.1);
   }
 }

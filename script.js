@@ -39,18 +39,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('scroll', onScroll);
 
-  // Preloader
+  // --- Preloader Animation --- 
   const preloader = document.getElementById('preloader');
   const mainContent = document.getElementById('main-content');
+  const progressBar = document.getElementById('preloader-progress-bar');
+  const percentage = document.getElementById('preloader-percentage');
+  const preloaderBrandMain = document.querySelector('.preloader-brand-main');
+  const preloaderBrandSub = document.querySelector('.preloader-brand-sub');
 
-  // Remove preloader after a delay
-  setTimeout(() => {
-    preloader.classList.add('hidden');
-    preloader.addEventListener('transitionend', () => {
-      preloader.remove();
-    });
-    mainContent.classList.add('visible');
-  }, 2000); // Display preloader for 2 seconds
+  const preloaderTl = gsap.timeline({ 
+    onComplete: () => {
+      // Ensure main content is visible after preloader is done
+      gsap.to(mainContent, { opacity: 1, visibility: 'visible', duration: 0.5 });
+    }
+  });
+
+  preloaderTl
+    .to(preloaderBrandMain, { opacity: 1, duration: 0.5, ease: 'power1.in' })
+    .to(preloaderBrandSub, { opacity: 1, duration: 0.5, ease: 'power1.in' }, '-=0.2')
+    .to(progressBar, { 
+      width: '100%',
+      duration: 1.2, // Shorten progress bar animation
+      ease: 'power2.inOut',
+      onUpdate: function() {
+        const progress = Math.round(this.progress() * 100);
+        percentage.textContent = `${progress}%`;
+      }
+    }, '-=0.5')
+    .to(preloader.querySelector('.preloader-content'), { opacity: 0, duration: 0.3 }, '+=0.1') // Shorten fade out
+    .to('.preloader-curtain.left', { x: '-100%', duration: 0.8, ease: 'power3.inOut' }) // Shorten curtain animation
+    .to('.preloader-curtain.right', { x: '100%', duration: 0.8, ease: 'power3.inOut' }, '<') // Shorten curtain animation
+    .set(preloader, { display: 'none' });
+
+  // --- End of Preloader Animation ---
 
   // モバイルメニュー開閉
   const menuToggle = document.getElementById('menuToggle');
@@ -59,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
   menuToggle.addEventListener('click', () => {
     const isMenuOpen = navLinks.classList.toggle('show');
     menuToggle.classList.toggle('menu-open', isMenuOpen);
+    document.body.classList.toggle('menu-open', isMenuOpen);
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';
   });
 
@@ -69,36 +91,54 @@ document.addEventListener('DOMContentLoaded', () => {
   tl.fromTo('.brand-main', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
   tl.fromTo('.brand-sub', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
 
-  // Text animation for hero-subtitle
+  // --- NEW: Elegant Word-by-word subtitle animation ---
   const subtitle = document.querySelector('.hero-subtitle');
-  const chars = subtitle.textContent.split('');
-  subtitle.innerHTML = '';
-  chars.forEach(char => {
-    const span = document.createElement('span');
-    span.className = 'char';
-    span.style.display = 'inline-block'; // Ensure proper spacing
-    span.textContent = char;
-    subtitle.appendChild(span);
+  const text = subtitle.textContent.trim();
+  const parts = text.split(/\s{2,}/); 
+  subtitle.innerHTML = ''; // Clear original text
+
+  parts.forEach((part, index) => {
+    const partWrapper = document.createElement('span');
+    partWrapper.className = 'subtitle-part';
+    partWrapper.textContent = part;
+    subtitle.appendChild(partWrapper);
+
+    if (index < parts.length - 1) {
+      const spacer = document.createElement('span');
+      spacer.innerHTML = '&nbsp;&nbsp;';
+      subtitle.appendChild(spacer);
+    }
   });
 
-  tl.to('.hero-subtitle .char', {
-    opacity: 1,
-    y: 0,
-    stagger: 0.05,
-    duration: 1,
-    ease: 'power3.out'
-  }, '-=0.5');
+  // Animate each part sequentially with a more elegant effect
+  tl.fromTo('.subtitle-part', 
+    { 
+      opacity: 0, 
+      y: 10, // Softer slide
+      filter: 'blur(4px)' // Add a blur effect
+    },
+    {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      stagger: 0.5, // Slightly longer pause between phrases
+      duration: 1.5, // Slower, more graceful animation
+      ease: 'power3.out'
+    }, '-=0.5');
 
   // Glowing animation for subtitle
-  tl.to('.hero-subtitle', {
-    textShadow: '0 0 10px rgba(248, 233, 221, 0.5), 0 0 20px rgba(232, 179, 143, 0.3)',
-    duration: 2.5,
-    yoyo: true,
-    repeat: -1,
-    ease: 'sine.inOut'
-  });
+  // Animate each part sequentially
+  tl.fromTo('.subtitle-part', 
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1,
+      y: 0,
+      stagger: 0.4, // Time between each part appearing
+      duration: 1,
+      ease: 'power3.out'
+    }, '-=0.5');
 
-  // Smooth scroll for navigation links
+  // Glowing animation for subtitle
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', e => {
       const targetId = link.getAttribute('href');
@@ -222,6 +262,89 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     });
   }
+
+  // --- NEW: 3D Hover effect for album items ---
+  const albumItemsFor3D = document.querySelectorAll('.album-item');
+  albumItemsFor3D.forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+      const rect = item.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -8; // Max rotation 8 degrees
+      const rotateY = ((x - centerX) / centerX) * 8;
+
+      gsap.to(item, {
+        duration: 0.5,
+        rotationX: rotateX,
+        rotationY: rotateY,
+        transformPerspective: 1000,
+        ease: 'power2.out'
+      });
+    });
+
+    item.addEventListener('mouseleave', () => {
+      gsap.to(item, {
+        duration: 0.5,
+        rotationX: 0,
+        rotationY: 0,
+        ease: 'power2.out'
+      });
+    });
+  });
+
+  // --- NEW: Evolved Cursor Interactions ---
+  const interactiveElements = document.querySelectorAll('a, button, .menu-toggle');
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => cursorBlob.classList.add('interactive'));
+    el.addEventListener('mouseleave', () => cursorBlob.classList.remove('interactive'));
+  });
+
+  // --- NEW: GSAP Scroll-Based Animations ---
+
+  // Parallax for Hero Background
+  gsap.to('body', { // Attaching to body to set a global variable
+      scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+          onUpdate: self => {
+              document.documentElement.style.setProperty('--parallax-y', `${self.progress * 150}px`);
+          }
+      }
+  });
+
+  // --- NEW: Reveal effect for Section Titles (h2) ---
+  const sectionTitles = document.querySelectorAll('section h2');
+  sectionTitles.forEach(title => {
+    // Wrap the title text in a span
+    const originalText = title.innerHTML;
+    title.innerHTML = `<span class="h2-inner">${originalText}</span>`;
+    const innerSpan = title.querySelector('.h2-inner');
+
+    // Create the mask element
+    const mask = document.createElement('span');
+    mask.className = 'reveal-mask';
+    title.appendChild(mask);
+
+    // Animation
+    gsap.fromTo(mask, 
+      { x: '0%' },
+      {
+        x: '101%', 
+        duration: 1.2, 
+        ease: 'power3.inOut',
+        scrollTrigger: {
+          trigger: title,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
 
   // Particle.js initialization - Elegant version
   const canvas = document.getElementById('particle-canvas');

@@ -40,15 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchstart', onMouseDown);
   document.addEventListener('touchend', onMouseUp);
 
-  const interactiveElements = document.querySelectorAll('a, button, .menu-toggle');
-  interactiveElements.forEach(el => {
-    // For PC
-    el.addEventListener('mouseenter', () => cursorBlob.classList.add('interactive'));
-    el.addEventListener('mouseleave', () => cursorBlob.classList.remove('interactive'));
-    // For Touch Devices
-    el.addEventListener('touchstart', () => cursorBlob.classList.add('interactive'));
-    el.addEventListener('touchend', () => cursorBlob.classList.remove('interactive'));
-  });
+  // --- PC-Specific Interactive Effect ---
+  if (!isTouchDevice()) {
+    const interactiveElements = document.querySelectorAll('a, button, .menu-toggle');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => cursorBlob.classList.add('interactive'));
+      el.addEventListener('mouseleave', () => cursorBlob.classList.remove('interactive'));
+    });
+  }
 
   // --- Preloader Animation --- 
   const preloader = document.getElementById('preloader');

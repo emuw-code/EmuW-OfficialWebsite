@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Create and append cursor blob element
+  const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  // --- Gradient Cursor Blob (All Devices) ---
   const cursorBlob = document.createElement('div');
   cursorBlob.classList.add('cursor-blob');
   document.body.appendChild(cursorBlob);
@@ -16,18 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const onMouseDown = () => cursorBlob.classList.add('clicked');
-  const onMouseUp = () => cursorBlob.classList.remove('clicked');
-
-  // Event listeners for cursor movement and interaction
   document.addEventListener('mousemove', moveCursor);
   document.addEventListener('touchmove', moveCursor);
-  document.addEventListener('mousedown', onMouseDown);
-  document.addEventListener('mouseup', onMouseUp);
-  document.addEventListener('touchstart', onMouseDown);
-  document.addEventListener('touchend', onMouseUp);
 
-  // Hide cursor on scroll, show after scroll ends
   let scrollTimeout;
   const onScroll = () => {
     cursorBlob.style.visibility = 'hidden';
@@ -36,8 +29,26 @@ document.addEventListener('DOMContentLoaded', () => {
       cursorBlob.style.visibility = 'visible';
     }, 150);
   };
-
   document.addEventListener('scroll', onScroll);
+
+  // --- Cursor Interactions (All Devices) ---
+  const onMouseDown = () => cursorBlob.classList.add('clicked');
+  const onMouseUp = () => cursorBlob.classList.remove('clicked');
+
+  document.addEventListener('mousedown', onMouseDown);
+  document.addEventListener('mouseup', onMouseUp);
+  document.addEventListener('touchstart', onMouseDown);
+  document.addEventListener('touchend', onMouseUp);
+
+  const interactiveElements = document.querySelectorAll('a, button, .menu-toggle');
+  interactiveElements.forEach(el => {
+    // For PC
+    el.addEventListener('mouseenter', () => cursorBlob.classList.add('interactive'));
+    el.addEventListener('mouseleave', () => cursorBlob.classList.remove('interactive'));
+    // For Touch Devices
+    el.addEventListener('touchstart', () => cursorBlob.classList.add('interactive'));
+    el.addEventListener('touchend', () => cursorBlob.classList.remove('interactive'));
+  });
 
   // --- Preloader Animation --- 
   const preloader = document.getElementById('preloader');
@@ -49,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const preloaderTl = gsap.timeline({ 
     onComplete: () => {
-      // Ensure main content is visible after preloader is done
       gsap.to(mainContent, { opacity: 1, visibility: 'visible', duration: 0.5 });
     }
   });
@@ -59,21 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
     .to(preloaderBrandSub, { opacity: 1, duration: 0.5, ease: 'power1.in' }, '-=0.2')
     .to(progressBar, { 
       width: '100%',
-      duration: 1.2, // Shorten progress bar animation
+      duration: 1.2, 
       ease: 'power2.inOut',
       onUpdate: function() {
         const progress = Math.round(this.progress() * 100);
         percentage.textContent = `${progress}%`;
       }
     }, '-=0.5')
-    .to(preloader.querySelector('.preloader-content'), { opacity: 0, duration: 0.3 }, '+=0.1') // Shorten fade out
-    .to('.preloader-curtain.left', { x: '-100%', duration: 0.8, ease: 'power3.inOut' }) // Shorten curtain animation
-    .to('.preloader-curtain.right', { x: '100%', duration: 0.8, ease: 'power3.inOut' }, '<') // Shorten curtain animation
+    .to(preloader.querySelector('.preloader-content'), { opacity: 0, duration: 0.3 }, '+=0.1')
+    .to('.preloader-curtain.left', { x: '-100%', duration: 0.8, ease: 'power3.inOut' })
+    .to('.preloader-curtain.right', { x: '100%', duration: 0.8, ease: 'power3.inOut' }, '<')
     .set(preloader, { display: 'none' });
 
-  // --- End of Preloader Animation ---
-
-  // モバイルメニュー開閉
+  // --- Mobile Menu --- 
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
 
@@ -81,64 +89,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMenuOpen = navLinks.classList.toggle('show');
     menuToggle.classList.toggle('menu-open', isMenuOpen);
     document.body.classList.toggle('menu-open', isMenuOpen);
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
   });
 
-  // GSAP Animations
+  // --- GSAP Animations ---
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
   tl.fromTo('.hero-pf', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '+=0.5');
   tl.fromTo('.brand-main', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
   tl.fromTo('.brand-sub', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 }, '-=0.7');
 
-  // Text animation for hero-subtitle
+  // --- Elegant Character-by-character subtitle animation ---
   const subtitle = document.querySelector('.hero-subtitle');
-  const chars = subtitle.textContent.split('');
-  subtitle.innerHTML = '';
-  chars.forEach(char => {
-    const span = document.createElement('span');
-    span.className = 'char';
-    span.style.display = 'inline-block'; // Ensure proper spacing
-    span.textContent = char;
-    subtitle.appendChild(span);
+  const text = subtitle.textContent.trim();
+  subtitle.innerHTML = ''; // Clear original text
+
+  text.split('').forEach(char => {
+    const charSpan = document.createElement('span');
+    charSpan.className = 'char';
+    charSpan.textContent = char === ' ' ? '\u00A0' : char; // Replace space with non-breaking space
+    subtitle.appendChild(charSpan);
   });
 
-  tl.to('.hero-subtitle .char', {
-    opacity: 1,
-    y: 0,
-    stagger: 0.05,
-    duration: 1,
-    ease: 'power3.out'
-  }, '-=0.5');
+  tl.fromTo('.hero-subtitle .char', 
+    { 
+      opacity: 0, 
+      y: 20,
+      filter: 'blur(5px)'
+    },
+    {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      stagger: 0.08, // Time between each character appearing
+      duration: 1,
+      ease: 'power3.out'
+    }, '-=0.5');
 
-  // Glowing animation for subtitle
-  tl.to('.hero-subtitle', {
-    textShadow: '0 0 10px rgba(248, 233, 221, 0.5), 0 0 20px rgba(232, 179, 143, 0.3)',
-    duration: 2.5,
-    yoyo: true,
-    repeat: -1,
-    ease: 'sine.inOut'
-  });
-
-  // Smooth scroll for navigation links
+  // --- Smooth Scrolling for Nav Links ---
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', e => {
       const targetId = link.getAttribute('href');
-      // Only prevent default for internal links
       if (targetId.startsWith('#')) {
         const targetElement = document.querySelector(targetId);
 
         if (targetElement) {
           e.preventDefault();
 
-          // Close the menu if it's open
           if (navLinks.classList.contains('show')) {
             navLinks.classList.remove('show');
             menuToggle.classList.remove('menu-open');
-            document.body.style.overflow = ''; // Restore body scroll
+            document.body.style.overflow = '';
           }
 
-          // Scroll to the target element
-          const offset = 68; // Navbar height
+          const offset = 68; 
           const bodyRect = document.body.getBoundingClientRect().top;
           const elementRect = targetElement.getBoundingClientRect().top;
           const elementPosition = elementRect - bodyRect;
@@ -153,12 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // アルバムカルーセル
+  // --- Album Carousel ---
   const container = document.querySelector('.album-container');
   const prevBtn = document.querySelector('.carousel-btn.prev');
   const nextBtn = document.querySelector('.carousel-btn.next');
 
-  // Randomize album order
   const albumItems = Array.from(container.children);
   for (let i = albumItems.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -180,11 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // GSAP ScrollTrigger Animations
+  // --- GSAP ScrollTrigger Animations ---
   gsap.registerPlugin(ScrollTrigger);
 
   const sections = document.querySelectorAll('.fade-in-section');
-
   sections.forEach(section => {
     gsap.fromTo(section, 
       { opacity: 0, y: 50 }, 
@@ -194,19 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 1,
         scrollTrigger: {
           trigger: section,
-          start: 'top 80%', // Trigger animation when the top of the section is 80% from the top of the viewport
+          start: 'top 80%',
           toggleActions: 'play none none none',
         }
       }
     );
   });
 
-  // Enhanced scroll animations for album items based on device type
-  const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const albumItemsForScroll = document.querySelectorAll('.album-item');
-
   if (isTouchDevice()) {
-    // Mobile: Simpler, more performant animation
     albumItemsForScroll.forEach(item => {
       gsap.fromTo(item, 
         { opacity: 0, y: 50 }, 
@@ -224,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     });
   } else {
-    // Desktop: Richer rotation animation
     albumItemsForScroll.forEach(item => {
       gsap.fromTo(item, 
         { opacity: 0, y: 50, rotationZ: -10 }, 
@@ -242,9 +239,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       );
     });
+
+    // --- 3D Hover effect for album items (PC Only) ---
+    const albumItemsFor3D = document.querySelectorAll('.album-item');
+    albumItemsFor3D.forEach(item => {
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+
+        gsap.to(item, {
+          duration: 0.5,
+          rotationX: rotateX,
+          rotationY: rotateY,
+          transformPerspective: 1000,
+          ease: 'power2.out'
+        });
+      });
+
+      item.addEventListener('mouseleave', () => {
+        gsap.to(item, {
+          duration: 0.5,
+          rotationX: 0,
+          rotationY: 0,
+          ease: 'power2.out'
+        });
+      });
+    });
   }
 
-  // Particle.js initialization - Elegant version
+  // --- Parallax for Hero Background ---
+  gsap.to('body', {
+      scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+          onUpdate: self => {
+              document.documentElement.style.setProperty('--parallax-y', `${self.progress * 150}px`);
+          }
+      }
+  });
+
+  // --- Reveal effect for Section Titles (h2) ---
+  const sectionTitles = document.querySelectorAll('section h2');
+  sectionTitles.forEach(title => {
+    const originalText = title.innerHTML;
+    title.innerHTML = `<span class="h2-inner">${originalText}</span>`;
+    const mask = document.createElement('span');
+    mask.className = 'reveal-mask';
+    title.appendChild(mask);
+
+    gsap.fromTo(mask, 
+      { x: '0%' },
+      {
+        x: '101%', 
+        duration: 1.2, 
+        ease: 'power3.inOut',
+        scrollTrigger: {
+          trigger: title,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  // --- Particle.js initialization ---
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
@@ -252,21 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let particlesArray;
 
-  // get mouse position
-  const mouse = {
-      x: null,
-      y: null,
-      radius: (canvas.height/120) * (canvas.width/120) // smaller radius
-  }
-
-  window.addEventListener('mousemove', 
-      function(event) {
-          mouse.x = event.x;
-          mouse.y = event.y;
-      }
-  );
-
-  // create particle
   class Particle {
       constructor(x, y, directionX, directionY, size, color) {
           this.x = x;
@@ -276,14 +326,12 @@ document.addEventListener('DOMContentLoaded', () => {
           this.size = size;
           this.color = color;
       }
-      // method to draw individual particle
       draw() {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-          ctx.fillStyle = 'rgba(232, 179, 143, 0.15)'; // more transparent
+          ctx.fillStyle = 'rgba(232, 179, 143, 0.15)';
           ctx.fill();
       }
-      // check particle position, check mouse position, move the particle, draw the particle
       update() {
           if (this.x > canvas.width || this.x < 0) {
               this.directionX = -this.directionX;
@@ -291,58 +339,39 @@ document.addEventListener('DOMContentLoaded', () => {
           if (this.y > canvas.height || this.y < 0) {
               this.directionY = -this.directionY;
           }
-
-          // move particle
           this.x += this.directionX;
           this.y += this.directionY;
-          // draw particle
           this.draw();
       }
   }
 
-  // create particle array
   function init() {
       particlesArray = [];
-      let numberOfParticles = (canvas.height * canvas.width) / 25000; // fewer particles
+      let numberOfParticles = (canvas.height * canvas.width) / 25000;
       for (let i = 0; i < numberOfParticles; i++) {
-          let size = (Math.random() * 2) + 1; // smaller size
+          let size = (Math.random() * 2) + 1;
           let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
           let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-          let directionX = (Math.random() * 0.4) - 0.2; // slower movement
-          let directionY = (Math.random() * 0.4) - 0.2; // slower movement
+          let directionX = (Math.random() * 0.4) - 0.2;
+          let directionY = (Math.random() * 0.4) - 0.2;
           let color = 'rgba(232, 179, 143, 0.15)';
-
           particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
       }
   }
 
-  // animation loop
   function animate() {
       requestAnimationFrame(animate);
       ctx.clearRect(0,0,innerWidth, innerHeight);
-
       for (let i = 0; i < particlesArray.length; i++) {
           particlesArray[i].update();
       }
   }
 
-  // resize event
-  window.addEventListener('resize', 
-      function(){
-          canvas.width = innerWidth;
-          canvas.height = innerHeight;
-          mouse.radius = ((canvas.height/120) * (canvas.height/120));
-          init();
-      }
-  );
-
-  // mouse out event
-  window.addEventListener('mouseout', 
-      function(){
-          mouse.x = undefined;
-          mouse.y = undefined;
-      }
-  )
+  window.addEventListener('resize', () => {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      init();
+  });
 
   init();
   animate();

@@ -200,6 +200,19 @@ section h2 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: relative; /* For reveal effect */
+  overflow: hidden;   /* For reveal effect */
+}
+
+.reveal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  z-index: 1;
+  will-change: transform;
 }
 
 /* ── Navigation ── */
@@ -370,9 +383,17 @@ section h2 {
 }
 
 .hero-subtitle .char {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(5px);
+  transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+}
+
+.hero-subtitle .char.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
 }
 .hero-brand {
   text-align: center;
@@ -685,6 +706,46 @@ section h2 {
   visibility: visible;
 }
 
+/* --- NEW: Evolved Cursor Blob --- */
+.cursor-blob.interactive {
+    width: 60px;
+    height: 60px;
+    background: var(--text);
+    mix-blend-mode: difference;
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* --- NEW: Shimmer Effect for Buttons --- */
+.btn-link, .link-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-link::after, .link-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease-out;
+}
+
+.btn-link:hover::after, .link-item:hover::after {
+  left: 150%;
+}
+
+/* --- NEW: Parallax for Hero Background --- */
+.hero::before, .hero::after {
+    will-change: transform;
+}
+
+.hero::after {
+    transform: translate(-50%, -50%) translateY(var(--parallax-y, 0px));
+}
+
 /* ── Mobile Menu ── */
 @media (max-width: 768px) {
   .container {
@@ -737,8 +798,8 @@ section h2 {
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
 
-  body.menu-open {
-  overflow: hidden;
+  body.menu-open .hero::before {
+  animation-play-state: paused;
 }
 
 .nav-links.show li {
@@ -897,17 +958,3 @@ section h2 {
 
 
 /* ── Keyframes ── */
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    text-shadow: 0 0 5px rgba(248, 233, 221, 0.2), 0 0 10px rgba(232, 179, 143, 0.1);
-  }
-  50% {
-    transform: scale(1.05);
-    text-shadow: 0 0 20px rgba(248, 233, 221, 0.5), 0 0 40px rgba(232, 179, 143, 0.3);
-  }
-  100% {
-    transform: scale(1);
-    text-shadow: 0 0 5px rgba(248, 233, 221, 0.2), 0 0 10px rgba(232, 179, 143, 0.1);
-  }
-}

@@ -798,10 +798,6 @@ section h2 {
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
 
-  body.menu-open .hero::before {
-  animation-play-state: paused;
-}
-
 .nav-links.show li {
     opacity: 1;
     transform: translateY(0);

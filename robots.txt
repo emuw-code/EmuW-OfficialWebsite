@@ -1,0 +1,8 @@
+User-agent: Google-Extended
+Disallow:
+
+User-agent: Anthropic-AI
+Disallow:
+
+User-agent: *
+Disallow:

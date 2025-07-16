@@ -5,4 +5,7 @@ User-agent: Anthropic-AI
 Disallow:
 
 User-agent: *
+Allow: /
+
+Sitemap: https://emuw-code.github.io/EmuW-OfficialWebsite/sitemap.xml
 Disallow:

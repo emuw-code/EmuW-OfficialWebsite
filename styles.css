@@ -482,7 +482,7 @@ section h2 {
   display: flex;
   gap: 2rem;
   overflow-x: auto;
-  padding: 2rem 1rem;
+  padding: 2rem 3rem;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
@@ -919,8 +919,8 @@ section h2 {
   .carousel-btn.next { right: 0.5rem; }
 
   .album-container {
-    gap: 2rem;
-    padding: 2rem 10vw;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
     scroll-snap-align: center;
   }
 

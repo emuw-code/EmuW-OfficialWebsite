@@ -152,6 +152,7 @@ body {
   font-family: 'Lato', 'Noto Sans JP', sans-serif;
   line-height: 1.6;
   position: relative;
+  border-top: none !important;
 }
 
 /* Skip Link */
@@ -159,7 +160,7 @@ body {
     position: absolute;
     top: -40px;
     left: 0;
-    background: var(--accent);
+    background: transparent; /* Changed to transparent for debugging */
     color: var(--bg);
     padding: 8px;
     z-index: 9999;

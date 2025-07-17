@@ -152,7 +152,6 @@ body {
   font-family: 'Lato', 'Noto Sans JP', sans-serif;
   line-height: 1.6;
   position: relative;
-  border-top: none !important;
 }
 
 /* Skip Link */
@@ -160,15 +159,17 @@ body {
     position: absolute;
     top: -40px;
     left: 0;
-    background: transparent; /* Changed to transparent for debugging */
+    background: var(--accent);
     color: var(--bg);
     padding: 8px;
     z-index: 9999;
     transition: top 0.3s ease-in-out;
+    clip: rect(0, 0, 0, 0);
 }
 
 .skip-link:focus {
     top: 0;
+    clip: auto;
 }
 
 #particle-canvas {

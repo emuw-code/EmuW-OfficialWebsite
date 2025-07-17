@@ -679,6 +679,21 @@ section h2 {
   border: 0;
 }
 
+.video-cta-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.video-cta-btn {
+  display: inline-block;
+  width: auto;
+  max-width: 280px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
 /* ── Links ── */
 .links .container {
   text-align: center;

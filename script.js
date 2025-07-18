@@ -202,6 +202,25 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   });
 
+  const videoFadeItems = document.querySelectorAll('.video-fade-item');
+  if (videoFadeItems.length > 0) {
+    gsap.fromTo(videoFadeItems,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.3,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#videos',
+          start: 'top 70%',
+          toggleActions: 'play none none none',
+        }
+      }
+    );
+  }
+
   const albumItemsForScroll = document.querySelectorAll('.album-item');
   if (isTouchDevice()) {
     albumItemsForScroll.forEach(item => {

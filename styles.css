@@ -768,6 +768,10 @@ section h2 {
   transform: translateY(0);
 }
 
+.video-fade-item {
+  opacity: 0;
+}
+
 /* ── Main Content Fade-in ── */
 #main-content {
   opacity: 0;

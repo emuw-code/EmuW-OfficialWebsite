@@ -98,11 +98,10 @@
     <div class="container">
       <h2>Listen Now</h2>
         <div class="listen-item spotify-embed">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/0tDEqp8bi5asCZFzsHNw7x?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/2QlvTwCbljnCATt4KEwOBo?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="listen-item apple-music-embed">
-          <iframe 
-allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="352" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/jp/album/velvet-sunset/1821046953?theme=dark"></iframe>
+          <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/jp/album/what-could-be/1822367773?theme=dark"></iframe>
 
         </div>
       </div>
@@ -246,14 +245,14 @@ allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder
     </section>
 
     <!-- Videos -->
-    <section id="videos" class="videos fade-in-section">
+    <section id="videos" class="videos">
       <div class="container">
         <h2>Videos</h2>
-        <p class="videos-desc">
+        <p class="videos-desc video-fade-item">
           EmuW の YouTube チャンネルでは、珠玉の R&B プレイリストを公開中。<br />
           美しいアートワークとともに、エモーショナルな音楽をシームレスにお楽しみください。
         </p>
-        <div class="video-embed fade-in-section">
+        <div class="video-embed video-fade-item">
           <iframe
             src="https://www.youtube.com/embed/videoseries?list=PLyHWXsA_W-qYR0GWUv0kIgAXO2Oa0nWWD"
             width="100%"
@@ -262,7 +261,7 @@ allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder
             loading="lazy"
           ></iframe>
         </div>
-        <div class="video-cta-container fade-in-section">
+        <div class="video-cta-container video-fade-item">
           <a href="https://www.youtube.com/@emotionalmusicworld-official" class="btn-link icon-link video-cta-btn" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-youtube"></i> Watch on YouTube
           </a>

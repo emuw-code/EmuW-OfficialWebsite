@@ -185,16 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- GSAP ScrollTrigger Animations ---
   gsap.registerPlugin(ScrollTrigger);
 
-  const sections = document.querySelectorAll('.fade-in-section');
-  sections.forEach(section => {
-    gsap.fromTo(section, 
+  const revealElements = document.querySelectorAll('.scroll-reveal');
+  revealElements.forEach(el => {
+    gsap.fromTo(el, 
       { opacity: 0, y: 50 }, 
       {
         opacity: 1,
         y: 0,
         duration: 1,
+        ease: 'power3.out',
         scrollTrigger: {
-          trigger: section,
+          trigger: el,
           start: 'top 80%',
           toggleActions: 'play none none none',
         }
@@ -204,20 +205,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const videoFadeItems = document.querySelectorAll('.video-fade-item');
   if (videoFadeItems.length > 0) {
-    gsap.fromTo(videoFadeItems,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.3,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '#videos',
-          start: 'top 70%',
-          toggleActions: 'play none none none',
-        }
+    const videoTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#videos',
+        start: 'top 70%',
+        toggleActions: 'play none none none',
       }
+    });
+
+    videoTl.fromTo('.videos-desc', 
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+    )
+    .fromTo('.video-embed', 
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+      '-=0.5' // Description animation starts 0.5s before this one
+    )
+    .fromTo('.video-cta-container', 
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+      '+=0.3' // Starts 0.3s after the video embed animation starts
     );
   }
 

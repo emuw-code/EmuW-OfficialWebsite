@@ -220,8 +220,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (container && prevBtn && nextBtn) {
     // Hide arrows initially to prevent any flash of visibility
-    prevBtn.style.display = 'none';
-    nextBtn.style.display = 'none';
+    prevBtn.style.display = "none";
+    nextBtn.style.display = "none";
 
     const albumItem = container.querySelector(".album-item");
     if (albumItem) {
@@ -242,12 +242,15 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       const initOrResizeCarousel = () => {
-        // Set to start to ensure correct initial state
-        container.scrollLeft = 0;
         // Recalculate item width
-        itemWidth = albumItem.offsetWidth + parseFloat(getComputedStyle(container).gap);
-        // Update arrow visibility based on the new state
-        updateArrows();
+        itemWidth =
+          albumItem.offsetWidth + parseFloat(getComputedStyle(container).gap);
+
+        // Defer scroll reset and arrow update to ensure browser has finalized layout and scroll position.
+        setTimeout(() => {
+          container.scrollLeft = 0;
+          updateArrows();
+        }, 100);
       };
 
       // Initialize the carousel only after all page content (including images) is fully loaded

@@ -1,0 +1,24 @@
+{
+  "name": "emuw-officialwebsite",
+  "version": "1.0.0",
+  "description": "本仕様書は、ミュージシャン「EmuW」の公式ウェブサイトの機能、デザイン、および技術的な仕様を定義するものです。",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emuw-code/EmuW-OfficialWebsite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/emuw-code/EmuW-OfficialWebsite/issues"
+  },
+  "homepage": "https://github.com/emuw-code/EmuW-OfficialWebsite#readme",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

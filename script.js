@@ -186,9 +186,46 @@ document.addEventListener('DOMContentLoaded', () => {
   albumItems.forEach(item => container.appendChild(item));
 
   if (container && prevBtn && nextBtn) {
+    // Hide arrows initially to prevent any flash of visibility
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+
     const albumItem = container.querySelector('.album-item');
     if (albumItem) {
-      const itemWidth = albumItem.offsetWidth + parseFloat(getComputedStyle(container).gap);
+      let itemWidth;
+
+      const updateArrows = () => {
+        const scrollLeft = container.scrollLeft;
+        const scrollWidth = container.scrollWidth;
+        const clientWidth = container.clientWidth;
+
+        // A small tolerance is useful for floating point inaccuracies
+        const isAtStart = scrollLeft <= 1;
+        const isAtEnd = scrollWidth - scrollLeft - clientWidth <= 1;
+
+        // Only show arrows if scrolling is possible and not at the respective ends
+        prevBtn.style.display = isAtStart ? 'none' : 'block';
+        nextBtn.style.display = isAtEnd ? 'none' : 'block';
+      };
+
+      const initOrResizeCarousel = () => {
+        // Recalculate item width
+        itemWidth = albumItem.offsetWidth + parseFloat(getComputedStyle(container).gap);
+
+        // Defer scroll reset and arrow update to ensure browser has finalized layout and scroll position.
+        setTimeout(() => {
+          container.scrollLeft = 0;
+          // Force update arrows after ensuring we're at the start
+          setTimeout(() => {
+            updateArrows();
+          }, 50);
+        }, 100);
+      };
+
+      // Initialize the carousel only after all page content (including images) is fully loaded
+      window.addEventListener('load', initOrResizeCarousel);
+      // Update on resize for responsive behavior
+      window.addEventListener('resize', initOrResizeCarousel);
 
       prevBtn.addEventListener('click', () => {
         container.scrollBy({ left: -itemWidth, behavior: 'smooth' });
@@ -196,6 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
       nextBtn.addEventListener('click', () => {
         container.scrollBy({ left: itemWidth, behavior: 'smooth' });
       });
+
+      // Also update on scroll for immediate feedback
+      container.addEventListener('scroll', updateArrows);
     }
   }
 

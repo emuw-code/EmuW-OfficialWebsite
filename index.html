@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -8,14 +8,14 @@
     <!-- OGP -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://emuw-official.com/" />
-    <meta property="og:title" content="EmuW Emotional Music World" />
+    <meta property="og:title" content="EmuW | Emotional Music World" />
     <meta
       property="og:description"
-      content="あなたの心に響く音楽をお届けするEmuWの公式サイト。"
+      content="最先端AIが紡ぐバーチャル・アーティスト EmuW の公式サイト。シルキーに揺れるメロウサウンドで、relaxing music を求めるあなたへ、心ほどける上質なひとときを。"
     />
     <meta
       property="og:image"
-      content="https://emuw-official.com/assets/images/ogp.png"
+      content="https://emuw-code.github.io/EmuW-OfficialWebsite/assets/images/ogp.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -23,23 +23,50 @@
     <meta name="twitter:site" content="@emotionalmusicw" />
     <!-- /OGP -->
 
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://emuw-code.github.io/EmuW-OfficialWebsite/assets/images/EmuW_logo2.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://emuw-code.github.io/EmuW-OfficialWebsite/assets/images/EmuW_logo2.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://emuw-code.github.io/EmuW-OfficialWebsite/assets/images/EmuW_logo2.png"
+    />
+    <meta name="theme-color" content="#121212" />
+
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&family=Montserrat:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
     <canvas id="particle-canvas"></canvas>
     <div id="preloader">
       <div class="preloader-curtain left"></div>
       <div class="preloader-curtain right"></div>
       <div class="preloader-content">
-        <h1 class="preloader-title">
+        <div class="preloader-title">
           <span class="preloader-brand-main">EmuW</span>
           <span class="preloader-brand-sub">EMOTIONAL MUSIC WORLD</span>
-        </h1>
+        </div>
         <div class="preloader-progress">
           <div id="preloader-progress-bar"></div>
         </div>
@@ -48,330 +75,506 @@
     </div>
 
     <div id="main-content">
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container nav-container">
-        <a href="#home" class="logo">
-          <img src="assets/images/EmuW_logo2.png" alt="EmuW Logo" />
-        </a>
-        <button id="menuToggle" class="menu-toggle">
-          <span class="menu-icon">☰</span>
-          <span class="close-icon">✕</span>
-        </button>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#listen">Listen</a></li>
-          <li><a href="#bio">Bio</a></li>
-          <li><a href="#music">Music</a></li>
-          <li><a href="#videos">Videos</a></li>
-          <li><a href="#links">Links</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Hero -->
-    <header id="home" class="hero">
-      <div class="container hero-container">
-        <img
-          src="assets/images/EmuW_pf.png"
-          alt="EmuW プロフィール"
-          class="hero-pf"
-        />
-        <div class="hero-brand">
-          <h1 class="brand-main">EmuW</h1>
-          <p class="brand-sub">Emotional Music World</p>
+      <!-- Navigation -->
+      <nav class="navbar">
+        <div class="container nav-container">
+          <a href="#home" class="logo">
+            <img src="assets/images/EmuW_logo2.png" alt="EmuW Logo" />
+          </a>
+          <button id="menuToggle" class="menu-toggle">
+            <span class="menu-icon">☰</span>
+            <span class="close-icon">✕</span>
+          </button>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#listen">Listen</a></li>
+            <li><a href="#bio">Bio</a></li>
+            <li><a href="#music">Music</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#links">Links</a></li>
+          </ul>
         </div>
-        <p class="hero-subtitle">心を包む&nbsp;&nbsp;彩り満ちる&nbsp;&nbsp;メロウな調べ</p>
-        <!-- <button class="btn">チャンネル登録</button> -->
-      </div>
-    </header>
+      </nav>
 
-    <!-- Listen Now -->
-  <section id="listen" class="listen fade-in-section">
-    <div class="container">
-      <h2>Listen Now</h2>
-        <div class="listen-item spotify-embed">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/0tDEqp8bi5asCZFzsHNw7x?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-        <div class="listen-item apple-music-embed">
-          <iframe 
-allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/jp/album/velvet-sunset/1821046953?theme=dark"></iframe>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Bio -->
-    <section id="bio" class="bio fade-in-section">
-      <div class="container">
-        <h2>About EmuW</h2>
-        <p>
-          EmuWは、AI技術を駆使して音楽を創造するバーチャルミュージシャン。<br />
-          心地よくエモーショナルなサウンドで、リラックス、集中、癒し──あらゆるシーンを彩ります。
-        </p>
-      </div>
-    </section>
-
-    <!-- Music -->
-    <section id="music" class="music fade-in-section">
-      <div class="container">
-        <h2>Music</h2>
-        <p class="section-subtitle">
-          R&amp;Bやジャズ、HipHopのエッセンスを取り入れた大人のリラックスミュージック。<br />
-          ぜひお好きなプラットフォームでお聴きください。
-        </p>
-
-        <div class="carousel">
-          <button class="carousel-btn prev" aria-label="前へ">‹</button>
-          <div class="album-container">
-            <!-- Album 12 -->
-            <div class="album-item coming-soon">
-              <img src="assets/images/album12.png" alt="Coming Soon" />
-              <h3 class="album-title">Coming Soon</h3>
-              <div class="album-buttons">
-                <p class="coming-soon-text">Coming Soon 2025.9.8</p>
-                <div class="btn-link-placeholder"></div>
-                <div class="btn-link-placeholder"></div>
-              </div>
-            </div>
-            <!-- Album 11 -->
-            <div class="album-item">
-              <img src="assets/images/album11.png" alt="Contours of My Soul" />
-              <h3 class="album-title">Contours of My Soul</h3>
-              <div class="album-buttons">
-                <a
-                  href="https://open.spotify.com/intl-ja/album/2ln8QkrH4hAeyCAWzL26il?si=kr9G8b-eTwazC-F3Sii8RA"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-spotify"></i> Spotify</a
-                >
-                <a
-                  href="https://music.amazon.co.jp/albums/B0FM88D2RJ?marketplaceId=A1VC38T7YXB528&musicTerritory=JP&ref=dm_sh_jTrnTPhgUP3i5jE5tRmutdHls"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-amazon"></i> Amazon Music</a
-                >
-                <a
-                  href="https://music.youtube.com/playlist?list=OLAK5uy_l9vMTPKkljuO2PBd2wFpIwZmZxx8W8HkM&si=jNVBg4w4iLiwn5KW"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-youtube"></i> YouTube Music</a
-                >
-              </div>
-            </div>
-            <!-- Album 10 -->
-            <div class="album-item">
-              <img src="assets/images/album10.png" alt="Venomous Bloom" />
-              <h3 class="album-title">Venomous Bloom</h3>
-              <div class="album-buttons">
-                <a
-                  href="https://open.spotify.com/intl-ja/album/3A48X4vAVNuaj2lvEs5iAr?si=d37uQq_lTnS_SrkqcoqYug"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-spotify"></i> Spotify</a
-                >
-                <a
-                  href="https://music.apple.com/jp/album/venomous-bloom/1827579811"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-apple"></i> Apple Music</a
-                >
-                <a
-                  href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qa1d82ewu2WU7Geo7znX28F&si=27Jn0tldT6LwUXqx"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-youtube"></i> YouTube Music</a
-                >
-              </div>
-            </div>
-            <!-- Album 9 -->
-            <div class="album-item">
-              <img
-                src="assets/images/album9.png"
-                alt="Timeless Infatuation"
-              />
-              <h3 class="album-title">Timeless Infatuation</h3>
-              <div class="album-buttons">
-                <a
-                  href="https://open.spotify.com/intl-ja/album/2QlvTwCbljnCATt4KEwOBo?si=UcqG59jPSKeCgN-VaN6YsA"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-spotify"></i> Spotify</a
-                >
-                <a
-                  href="https://music.apple.com/jp/album/timeless-infatuation/1825920919"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-apple"></i> Apple Music</a
-                >
-                <a
-                  href="https://music.youtube.com/playlist?list=OLAK5uy_lSb97k9BsY3dn9uydQPh22m3CaPnxLrh8&si=3VxzdLa_jM8q6oR1"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-youtube"></i> YouTube Music</a
-                >
-              </div>
-            </div>
-            <!-- Album 1 -->
-            <div class="album-item">
-              <img src="assets/images/album1.png" alt="Lasting Love Emotive R&B" />
-              <h3 class="album-title">Lasting Love Emotive R&B</h3>
-              <div class="album-buttons">
-                <a
-                  href="https://open.spotify.com/intl-ja/album/5nm4l4O8bRgzXuLsxyT4dA?si=NSlJZY0WSS2xWRH7_9Zs9A"
-                  class="btn-link icon-link"
-                  ><i class="fab fa-spotify"></i> Spotify</a
-                >
-                <a href="https://music.apple.com/jp/album/lasting-love-emotive-r-b/1804410626" class="btn-link icon-link">
-                  <i class="fab fa-apple"></i> Apple Music</a
-                >
-                <a href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qaBeDW06dvRCAgGBUMocLG-&si=VW1fS_kV2KikNhg1" class="btn-link icon-link">
-                  <i class="fab fa-youtube"></i> YouTube Music</a
-                >
-              </div>
-            </div>
-            <!-- Album 2 -->
-            <div class="album-item">
-              <img src="assets/images/album2.png" alt="Finding Me Emotive R&B" />
-              <h3 class="album-title">Finding Me Emotive R&B</h3>
-              <div class="album-buttons">
-                <a href="https://open.spotify.com/album/7zFoP1S9VWTVqM9xDp0tDh?si=1I2YuLn_RHOdWeWd6ULJng" class="btn-link icon-link"><i class="fab fa-spotify"></i> Spotify</a>
-                <a href="https://music.amazon.co.jp/albums/B0F2SZ9J4C?marketplaceId=A1VC38T7YXB528&musicTerritory=JP&ref=dm_sh_x3rEvUJWySKKZltlMemxbjbWM" class="btn-link icon-link"><i class="fab fa-amazon"></i> Amazon Music</a>
-                <a href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qYV2RaXDU8P58mWt0Ievv_G&si=WsjBI2ldMZpSMqLX" class="btn-link icon-link"><i class="fab fa-youtube"></i> YouTube Music</a>
-              </div>
-            </div>
-            <!-- Album 3 -->
-            <div class="album-item">
-              <img src="assets/images/album3.png" alt="CityLights Emotive R&B" />
-              <h3 class="album-title">CityLights Emotive R&B</h3>
-              <div class="album-buttons">
-                <a href="https://open.spotify.com/album/6x2KIhZPcvFvWzsTz3C04l?si=in1l8vJnTPiXVwJs7N-ooQ" class="btn-link icon-link"><i class="fab fa-spotify"></i> Spotify</a>
-                <a href="https://music.apple.com/jp/album/citylights-emotive-r-b/1808632473" class="btn-link icon-link"><i class="fab fa-apple"></i> Apple Music</a>
-                <a href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qZ3fC6PcfPEbrSflq7ouhlU&si=_we_UWIj6yUG7iBk" class="btn-link icon-link"><i class="fab fa-youtube"></i> YouTube Music</a>
-              </div>
-            </div>
-            <!-- Album 4 -->
-            <div class="album-item">
-              <img src="assets/images/album4.png" alt="SilhouetteN EmotiveR&B" />
-              <h3 class="album-title">SilhouetteN EmotiveR&B</h3>
-              <div class="album-buttons">
-                <a href="https://open.spotify.com/album/0EHCWysMRVuCMBZK7yOFLt?si=sNXDuFspRlyw2hRrxlvMYw" class="btn-link icon-link"><i class="fab fa-spotify"></i> Spotify</a>
-                <a href="https://music.apple.com/jp/album/silhouetten-emotiver-b/1810495932" class="btn-link icon-link"><i class="fab fa-apple"></i> Apple Music</a>
-                <a href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qbhhVAuXiQx838fAzj7srWM&si=HfOe6yVmaWAW_LdC" class="btn-link icon-link"><i class="fab fa-youtube"></i> YouTube Music</a>
-              </div>
-            </div>
-            <!-- Album 5 -->
-            <div class="album-item">
-              <img src="assets/images/album5.png" alt="Chic Revolution EmotiveR&B" />
-              <h3 class="album-title">Chic Revolution EmotiveR&B</h3>
-              <div class="album-buttons">
-                <a href="https://open.spotify.com/intl-ja/album/3h7bd8g8N2ebaweAmRbhDY?si=meTrgIc1Ry-P2F716ErotQ" class="btn-link icon-link"><i class="fab fa-spotify"></i> Spotify</a>
-                <a href="https://music.apple.com/jp/album/chic-revolution-emotive-r-b/1813372244" class="btn-link icon-link"><i class="fab fa-apple"></i> Apple Music</a>
-                <a href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qYeJA0jm81BO-apwAStovgw&si=80yzqsroMLh5iew-" class="btn-link icon-link"><i class="fab fa-youtube"></i> YouTube Music</a>
-              </div>
-            </div>
-            <!-- Album 6 -->
-            <div class="album-item">
-              <img src="assets/images/album6.png" alt="Own My Crown" />
-              <h3 class="album-title">Own My Crown</h3>
-              <div class="album-buttons">
-                <a href="https://open.spotify.com/album/6dL8bFpSVyUzB7zKk4WRCY?si=CwBG_1XDQVCQVVs5Dg-RGA" class="btn-link icon-link"><i class="fab fa-spotify"></i> Spotify</a>
-                <a href="https://music.apple.com/jp/album/own-my-crown/1816239005" class="btn-link icon-link"><i class="fab fa-apple"></i> Apple Music</a>
-                <a href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qb7D4LBg91d988-RQBKGPJF&si=YIZqJLmCa-sRXpD3" class="btn-link icon-link"><i class="fab fa-youtube"></i> YouTube Music</a>
-              </div>
-            </div>
-            <!-- Album 7 -->
-            <div class="album-item">
-              <img src="assets/images/album7.png" alt="Velvet Sunset" />
-              <h3 class="album-title">Velvet Sunset</h3>
-              <div class="album-buttons">
-                <a href="https://open.spotify.com/intl-ja/album/1Dlb2Xoch1XsU2brKgIqk5?si=PqEInrRTR5K52Ec_HvVaFw" class="btn-link icon-link"><i class="fab fa-spotify"></i> Spotify</a>
-                <a href="https://music.apple.com/jp/album/velvet-sunset/1821046953" class="btn-link icon-link"><i class="fab fa-apple"></i> Apple Music</a>
-                <a href="https://music.amazon.co.jp/albums/B0FD3M58M2?marketplaceId=A1VC38T7YXB528&musicTerritory=JP&ref=dm_sh_skLZ4c50ezD3zL6XDKiCyvCYq" class="btn-link icon-link"><i class="fab fa-amazon"></i> Amazon Music</a>
-              </div>
-            </div>
-            <!-- Album 8 -->
-            <div class="album-item">
-              <img src="assets/images/album8.png" alt="What Could Be" />
-              <h3 class="album-title">What Could Be</h3>
-              <div class="album-buttons">
-                <a href="https://open.spotify.com/intl-ja/album/0tDEqp8bi5asCZFzsHNw7x?si=Es07AKDoTFuhmjpM-Nfzzw" class="btn-link icon-link"><i class="fab fa-spotify"></i> Spotify</a>
-                <a href="https://music.apple.com/jp/album/what-could-be/1822367773" class="btn-link icon-link"><i class="fab fa-apple"></i> Apple Music</a>
-                <a href="https://music.amazon.co.jp/albums/B0FDYVSNHX?marketplaceId=A1VC38T7YXB528&musicTerritory=JP&ref=dm_sh_JNeTI9renPRjp6gTOSgmfYDZ5" class="btn-link icon-link"><i class="fab fa-amazon"></i> Amazon Music</a>
-              </div>
-            </div>
+      <!-- Hero -->
+      <header id="home" class="hero">
+        <div class="container hero-container">
+          <img
+            src="assets/images/EmuW_pf.png"
+            alt="EmuW プロフィール"
+            class="hero-pf"
+          />
+          <div class="hero-brand">
+            <h1 class="brand-main">EmuW</h1>
+            <p class="brand-sub">Emotional Music World</p>
           </div>
-          <button class="carousel-btn next" aria-label="次へ">›</button>
+          <p class="hero-subtitle">心を包む 時を彩る メロウな調べ</p>
+          <!-- <button class="btn">チャンネル登録</button> -->
         </div>
-      </div>
-    </section>
+      </header>
 
-    <!-- Videos -->
-    <section id="videos" class="videos fade-in-section">
-      <div class="container">
-        <h2>Videos</h2>
-        <p class="videos-desc">
-          EmuWのYouTubeチャンネルでは、“Emotional R&B”プレイリストを公開中。<br />
-          美しいサムネイルとともに、エモーショナルな音楽をシームレスにお楽しみください。
-        </p>
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/videoseries?list=PLyHWXsA_W-qYR0GWUv0kIgAXO2Oa0nWWD"
-            width="100%"
-            frameborder="0"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
+      <!-- Listen Now -->
+      <section id="listen" class="listen scroll-reveal">
+        <div class="container">
+          <h2>Listen Now</h2>
+          <div class="listen-item spotify-embed">
+            <iframe
+              data-testid="embed-iframe"
+              style="border-radius: 12px"
+              src="https://open.spotify.com/embed/album/2ln8QkrH4hAeyCAWzL26il?utm_source=generator"
+              width="100%"
+              height="352"
+              frameborder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="listen-item apple-music-embed">
+            <iframe
+              allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+              frameborder="0"
+              height="450"
+              style="
+                width: 100%;
+                max-width: 660px;
+                overflow: hidden;
+                border-radius: 10px;
+              "
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+              src="https://embed.music.apple.com/jp/album/venomous-bloom/1827579811?theme=dark"
+            ></iframe>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Links -->
-    <section id="links" class="links fade-in-section">
-      <div class="container">
-        <h2>Links</h2>
-        <div class="links-container">
-          <a
-            href="https://x.com/emotionalmusicw"
-            class="link-item"
-            target="_blank"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
-              <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-            </svg>
-            <span class="link-label">X</span>
-          </a>
-          <a
-            href="https://instagram.com/emotionalmusicw"
-            class="link-item"
-            target="_blank"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="currentColor" class="feather feather-instagram">
-              <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
-            </svg>
-            <span class="link-label">Instagram</span>
-          </a>
-          <a
-            href="https://www.tiktok.com/@emotional.music.w"
-            class="link-item"
-            target="_blank"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="48px" height="48px">
-              <path d="M41,4H9C6.243,4,4,6.243,4,9v32c0,2.757,2.243,5,5,5h32c2.757,0,5-2.243,5-5V9C46,6.243,43.757,4,41,4z M37.006,22.323 c-0.227,0.021-0.457,0.035-0.69,0.035c-2.623,0-4.928-1.349-6.269-3.388c0,5.349,0,11.435,0,11.537c0,4.709-3.818,8.527-8.527,8.527 s-8.527-3.818-8.527-8.527s3.818-8.527,8.527-8.527c0.178,0,0.352,0.016,0.527,0.027v4.202c-0.175-0.021-0.347-0.053-0.527-0.053 c-2.404,0-4.352,1.948-4.352,4.352s1.948,4.352,4.352,4.352s4.527-1.894,4.527-4.298c0-0.095,0.042-19.594,0.042-19.594h4.016 c0.378,3.591,3.277,6.425,6.901,6.685V22.323z"/>
-            </svg>
-            <span class="link-label">TikTok</span>
-          </a>
-          <a
-            href="https://www.youtube.com/@emotionalmusicworld-official"
-            class="link-item"
-            target="_blank"
-          >
-                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="feather feather-youtube">
-              <path d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.264.406 4.814c.23.857.905 1.534 1.763 1.765 1.582.43 7.83.437 7.83.437s6.265.007 7.831-.403a2.515 2.515 0 0 0 1.762-1.766c.407-1.564.411-4.814.411-4.814s.004-3.265-.406-4.814zM10 15.146V8.854L15.75 12z"/>
-            </svg>
-            <span class="link-label">YouTube</span>
-          </a>
+      <!-- Bio -->
+      <section id="bio" class="bio scroll-reveal">
+        <div class="container">
+          <h2>About EmuW</h2>
+          <p>
+            EmuW は、最先端 AI が紡ぐバーチャル・アーティスト。<br />
+            シルキーに揺れるメロウサウンドが、リラックス・没入・癒やし──あらゆるシーンを上質に彩ります。
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <p>© 2025 EmuW – All Rights Reserved</p>
-      </div>
-    </footer>
+      <!-- Music -->
+      <section id="music" class="music scroll-reveal">
+        <div class="container">
+          <h2>Music</h2>
+          <p class="section-subtitle">
+            R&B・Jazz・Hip&nbsp;Hop
+            が滑らかに溶け合う、大人のリラクシング・チューン。<br />
+            お好きなストリーミングで、しっとりと艶めくひとときを。
+          </p>
+
+          <div class="carousel">
+            <button class="carousel-btn prev" aria-label="前へ">‹</button>
+            <div class="album-container">
+              <!-- Album 10 -->
+              <div class="album-item">
+                <img src="assets/images/album10.png" alt="Venomous Bloom" />
+                <h3 class="album-title">Venomous Bloom</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/intl-ja/album/3A48X4vAVNuaj2lvEs5iAr?si=d37uQq_lTnS_SrkqcoqYug"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/venomous-bloom/1827579811"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qa1d82ewu2WU7Geo7znX28F&si=27Jn0tldT6LwUXqx"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 12 -->
+              <div class="album-item coming-soon">
+                <img src="assets/images/album12.png" alt="Coming Soon" />
+                <h3 class="album-title">Coming Soon</h3>
+                <div class="album-buttons">
+                  <p class="coming-soon-text">Coming Soon 2025.9.8</p>
+                  <div class="btn-link-placeholder"></div>
+                  <div class="btn-link-placeholder"></div>
+                </div>
+              </div>
+              <!-- Album 11 -->
+              <div class="album-item">
+                <img src="assets/images/album11.png" alt="Contours of My Soul" />
+                <h3 class="album-title">Contours of My Soul</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/intl-ja/album/2ln8QkrH4hAeyCAWzL26il?si=kr9G8b-eTwazC-F3Sii8RA"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.amazon.co.jp/albums/B0FM88D2RJ?marketplaceId=A1VC38T7YXB528&musicTerritory=JP&ref=dm_sh_jTrnTPhgUP3i5jE5tRmutdHls"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-amazon"></i> Amazon Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=OLAK5uy_l9vMTPKkljuO2PBd2wFpIwZmZxx8W8HkM&si=jNVBg4w4iLiwn5KW"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 9 -->
+              <div class="album-item">
+                <img
+                  src="assets/images/album9.png"
+                  alt="Timeless Infatuation"
+                />
+                <h3 class="album-title">Timeless Infatuation</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/intl-ja/album/2QlvTwCbljnCATt4KEwOBo?si=UcqG59jPSKeCgN-VaN6YsA"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/timeless-infatuation/1825920919"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=OLAK5uy_lSb97k9BsY3dn9uydQPh22m3CaPnxLrh8&si=3VxzdLa_jM8q6oR1"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 1 -->
+              <div class="album-item">
+                <img
+                  src="assets/images/album1.png"
+                  alt="Lasting Love Emotive R&B"
+                />
+                <h3 class="album-title">Lasting Love Emotive R&B</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/intl-ja/album/5nm4l4O8bRgzXuLsxyT4dA?si=NSlJZY0WSS2xWRH7_9Zs9A"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/lasting-love-emotive-r-b/1804410626"
+                    class="btn-link icon-link"
+                  >
+                    <i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qaBeDW06dvRCAgGBUMocLG-&si=VW1fS_kV2KikNhg1"
+                    class="btn-link icon-link"
+                  >
+                    <i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 2 -->
+              <div class="album-item">
+                <img
+                  src="assets/images/album2.png"
+                  alt="Finding Me Emotive R&B"
+                />
+                <h3 class="album-title">Finding Me Emotive R&B</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/album/7zFoP1S9VWTVqM9xDp0tDh?si=1I2YuLn_RHOdWeWd6ULJng"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.amazon.co.jp/albums/B0F2SZ9J4C?marketplaceId=A1VC38T7YXB528&musicTerritory=JP&ref=dm_sh_x3rEvUJWySKKZltlMemxbjbWM"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-amazon"></i> Amazon Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qYV2RaXDU8P58mWt0Ievv_G&si=WsjBI2ldMZpSMqLX"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 3 -->
+              <div class="album-item">
+                <img
+                  src="assets/images/album3.png"
+                  alt="CityLights Emotive R&B"
+                />
+                <h3 class="album-title">CityLights Emotive R&B</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/album/6x2KIhZPcvFvWzsTz3C04l?si=in1l8vJnTPiXVwJs7N-ooQ"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/citylights-emotive-r-b/1808632473"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qZ3fC6PcfPEbrSflq7ouhlU&si=_we_UWIj6yUG7iBk"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 4 -->
+              <div class="album-item">
+                <img
+                  src="assets/images/album4.png"
+                  alt="SilhouetteN EmotiveR&B"
+                />
+                <h3 class="album-title">SilhouetteN EmotiveR&B</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/album/0EHCWysMRVuCMBZK7yOFLt?si=sNXDuFspRlyw2hRrxlvMYw"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/silhouetten-emotiver-b/1810495932"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qbhhVAuXiQx838fAzj7srWM&si=HfOe6yVmaWAW_LdC"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 5 -->
+              <div class="album-item">
+                <img
+                  src="assets/images/album5.png"
+                  alt="Chic Revolution EmotiveR&B"
+                />
+                <h3 class="album-title">Chic Revolution EmotiveR&B</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/intl-ja/album/3h7bd8g8N2ebaweAmRbhDY?si=meTrgIc1Ry-P2F716ErotQ"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/chic-revolution-emotive-r-b/1813372244"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qYeJA0jm81BO-apwAStovgw&si=80yzqsroMLh5iew-"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 6 -->
+              <div class="album-item">
+                <img src="assets/images/album6.png" alt="Own My Crown" />
+                <h3 class="album-title">Own My Crown</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/album/6dL8bFpSVyUzB7zKk4WRCY?si=CwBG_1XDQVCQVVs5Dg-RGA"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/own-my-crown/1816239005"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=PLyHWXsA_W-qb7D4LBg91d988-RQBKGPJF&si=YIZqJLmCa-sRXpD3"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 7 -->
+              <div class="album-item">
+                <img src="assets/images/album7.png" alt="Velvet Sunset" />
+                <h3 class="album-title">Velvet Sunset</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/intl-ja/album/1Dlb2Xoch1XsU2brKgIqk5?si=PqEInrRTR5K52Ec_HvVaFw"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/velvet-sunset/1821046953"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=OLAK5uy_kPAObS8gwIsEVkAEKOC8lexm1P23-J9K0&si=Mkrp5NzPEwKJ2kZT"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+              <!-- Album 8 -->
+              <div class="album-item">
+                <img src="assets/images/album8.png" alt="What Could Be" />
+                <h3 class="album-title">What Could Be</h3>
+                <div class="album-buttons">
+                  <a
+                    href="https://open.spotify.com/intl-ja/album/0tDEqp8bi5asCZFzsHNw7x?si=Es07AKDoTFuhmjpM-Nfzzw"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-spotify"></i> Spotify</a
+                  >
+                  <a
+                    href="https://music.apple.com/jp/album/what-could-be/1822367773"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-apple"></i> Apple Music</a
+                  >
+                  <a
+                    href="https://music.youtube.com/playlist?list=OLAK5uy_nnt0fS_edyR5j3Q26u0GCG1Th4JgoC-Hk&si=C9o4Fza-kRbuMtiN"
+                    class="btn-link icon-link"
+                    ><i class="fab fa-youtube"></i> YouTube Music</a
+                  >
+                </div>
+              </div>
+            </div>
+            <button class="carousel-btn next" aria-label="次へ">›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Videos -->
+      <section id="videos" class="videos scroll-reveal">
+        <div class="container">
+          <h2>Videos</h2>
+          <p class="videos-desc video-fade-item">
+            EmuW の YouTube チャンネルでは、珠玉の R&B プレイリストを公開中。<br />
+            美しいアートワークとともに、エモーショナルな音楽をシームレスにお楽しみください。
+          </p>
+          <div class="video-embed video-fade-item">
+            <iframe
+              src="https://www.youtube.com/embed/videoseries?list=PLyHWXsA_W-qYR0GWUv0kIgAXO2Oa0nWWD"
+              width="100%"
+              frameborder="0"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="video-cta-container video-fade-item">
+            <a
+              href="https://www.youtube.com/@emotionalmusicworld-official"
+              class="btn-link icon-link video-cta-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube"></i> Watch on YouTube
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Links -->
+      <section id="links" class="links scroll-reveal">
+        <div class="container">
+          <h2>Links</h2>
+          <div class="links-container">
+            <a
+              href="https://x.com/emotionalmusicw"
+              class="link-item"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-twitter-x"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"
+                />
+              </svg>
+              <span class="link-label">X</span>
+            </a>
+            <a
+              href="https://instagram.com/emotionalmusicw"
+              class="link-item"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="feather feather-instagram"
+              >
+                <path
+                  d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"
+                />
+              </svg>
+              <span class="link-label">Instagram</span>
+            </a>
+            <a
+              href="https://www.tiktok.com/@emotional.music.w"
+              class="link-item"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 50 50"
+                width="48px"
+                height="48px"
+              >
+                <path
+                  d="M41,4H9C6.243,4,4,6.243,4,9v32c0,2.757,2.243,5,5,5h32c2.757,0,5-2.243,5-5V9C46,6.243,43.757,4,41,4z M37.006,22.323 c-0.227,0.021-0.457,0.035-0.69,0.035c-2.623,0-4.928-1.349-6.269-3.388c0,5.349,0,11.435,0,11.537c0,4.709-3.818,8.527-8.527,8.527 s-8.527-3.818-8.527-8.527s3.818-8.527,8.527-8.527c0.178,0,0.352,0.016,0.527,0.027v4.202c-0.175-0.021-0.347-0.053-0.527-0.053 c-2.404,0-4.352,1.948-4.352,4.352s1.948,4.352,4.352,4.352s4.527-1.894,4.527-4.298c0-0.095,0.042-19.594,0.042-19.594h4.016 c0.378,3.591,3.277,6.425,6.901,6.685V22.323z"
+                />
+              </svg>
+              <span class="link-label">TikTok</span>
+            </a>
+            <a
+              href="https://www.youtube.com/@emotionalmusicworld-official"
+              class="link-item"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="feather feather-youtube"
+              >
+                <path
+                  d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.264.406 4.814c.23.857.905 1.534 1.763 1.765 1.582.43 7.83.437 7.83.437s6.265.007 7.831-.403a2.515 2.515 0 0 0 1.762-1.766c.407-1.564.411-4.814.411-4.814s.004-3.265-.406-4.814zM10 15.146V8.854L15.75 12z"
+                />
+              </svg>
+              <span class="link-label">YouTube</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+          <p>© 2025 EmuW – All Rights Reserved</p>
+        </div>
+      </footer>
+    </div>
+    <!-- main-content -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
